@@ -63,6 +63,12 @@ code,.k{font:500 .88em var(--mono);letter-spacing:.02em}
 .dlbtn code{font-weight:400;opacity:.75}
 .dlbtn:hover{opacity:.88}
 .badge{height:20px}
+.road{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:20px}
+.road>div{background:var(--bg);padding:16px;display:flex;flex-direction:column;gap:4px}
+.road i{font:500 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;font-style:normal;color:var(--muted)}
+.road b{font:500 15px var(--mono);letter-spacing:.06em}
+.road>div>span{font-size:14px;color:var(--muted)}
+@media (max-width:860px){.road{grid-template-columns:repeat(2,1fr)}.road>div:last-child{grid-column:1/-1}}
 .typesintro{margin:32px 0 14px;font-size:16px}
 .types a{background:var(--bg);padding:16px;text-decoration:none;color:inherit;transition:background .15s}
 .types a:hover{background:var(--soft)}
@@ -149,6 +155,7 @@ html{scroll-behavior:smooth;scroll-padding-top:64px}
     <a href="#start"><span class="cs">Rychlý start</span><span class="en">Quick start</span></a>
     <a href="#panel"><span class="cs">Ovládání</span><span class="en">Controls</span></a>
     <a href="#screens"><span class="cs">Obrazovky</span><span class="en">Screens</span></a>
+    <a href="#roadmap"><span class="cs">Plány</span><span class="en">Roadmap</span></a>
     <a href="#download"><span class="cs">Ke stažení</span><span class="en">Download</span></a>
     <a class="bmc" href="https://buymeacoffee.com/bretikov" target="_blank" rel="noopener"><span class="cs">Podpoř projekt ↗</span><span class="en">Buy me a coffee ↗</span></a>
   </nav>
@@ -417,6 +424,18 @@ html{scroll-behavior:smooth;scroll-padding-top:64px}
   <h2><span class="cs">Obrazovky a funkce</span><span class="en">Screens and functions</span></h2>
   <p class="hint" style="margin:-12px 0 24px"><span class="cs">Najeď nebo klepni na pole displeje či na řádek popisu. Řádek 1 obrazovky stopy ukazuje vždy pattern vybrané stopy.</span><span class="en">Hover or tap a field on the display or a row in the list. Line 1 of a track screen always shows the selected track's pattern.</span></p>
   <div id="screenlist"></div>
+</div></section>
+
+<section id="roadmap"><div class="wrap">
+  <h2><span class="cs">Plány</span><span class="en">Roadmap</span></h2>
+  <p><span class="cs">Co se chystá do dalších verzí. Pořadí i podoba se ještě můžou změnit.</span><span class="en">What is planned for future versions. Order and details may still change.</span></p>
+  <div class="road">
+    <div><i><span class="cs">nový typ</span><span class="en">new type</span></i><b>MKV</b><span class="cs">Markovův řetězec – naučí se přechody mezi stupni z nahrané stopy USR a generuje nové varianty „ve stejném stylu“.</span><span class="en">Markov chain – learns the transitions between scale degrees from a recorded USR track and generates new variations “in the same style”.</span></div>
+    <div><i><span class="cs">nový typ</span><span class="en">new type</span></i><b>INF</b><span class="cs">Řada nekonečna (Per Nørgård) – deterministická soběpodobná řada intervalů, různé „rychlosti čtení“.</span><span class="en">Infinity series (Per Nørgård) – a deterministic self-similar series of intervals, read at different “speeds”.</span></div>
+    <div><i><span class="cs">funkce</span><span class="en">feature</span></i><b>LFO</b><span class="cs">LFO na MIDI CC pro každou stopu – např. pomalé otevírání filtru synthu, synchronně s taktem.</span><span class="en">An LFO on MIDI CC for each track – e.g. slowly opening a synth's filter, in sync with the bar.</span></div>
+    <div><i><span class="cs">funkce</span><span class="en">feature</span></i><b>SYNC IN</b><span class="cs">Synchronizace z MIDI IN – MC-500 jako slave, např. za TR-6S nebo S-1.</span><span class="en">Sync from MIDI IN – the MC-500 as a slave, e.g. to a TR-6S or S-1.</span></div>
+    <div><i><span class="cs">funkce</span><span class="en">feature</span></i><b>THRU</b><span class="cs">MIDI THRU – hraní z klávesnice nebo synthu přes MC-500 na další nástroj.</span><span class="en">MIDI THRU – play from a keyboard or synth through the MC-500 to another instrument.</span></div>
+  </div>
 </div></section>
 
 <section id="download"><div class="wrap">
