@@ -19,7 +19,7 @@ A 4-track loop MIDI sequencer with five sequencer types for the Roland MC-500 Mk
 - a floppy drive to write the image
 
 ## Writing the floppy
-On macOS the **DiskWrite** app works, on Windows **RawWrite for Windows**. On the command line, always write **whole tracks** (`bs=9216`):
+On Windows use the **DiskWrite** app (tested by the author). On macOS and Linux, use `dd` in the terminal and always write **whole tracks** (`bs=9216`):
 
 ```
 # macOS – find your floppy first (e.g. disk2), double-check the number!
@@ -30,9 +30,6 @@ diskutil eject /dev/disk2
 
 # Linux
 sudo dd if=QUALEA-500.dsk of=/dev/sdX bs=9216
-
-# Windows – "dd for Windows" (chrysocome.net), run as administrator
-dd if=QUALEA-500.dsk of=\\.\a: bs=9216
 ```
 
 Do **not** write sector by sector (`bs=512`, often with `conv=noerror,sync`): with USB floppy drives this produces disks the MC-500 reads with CRC errors – even Roland's own system disk then fails to boot. `conv=noerror,sync` also hides write errors.

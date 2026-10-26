@@ -207,15 +207,13 @@ html{scroll-behavior:smooth;scroll-padding-top:64px}
   <h2><span class="cs">Rychlý start</span><span class="en">Quick start</span></h2>
   <ol class="steps">
     <li><h4><span class="cs">Zapiš disketu</span><span class="en">Write the floppy</span></h4>
-      <p><span class="cs">Obraz <code>.dsk</code> zapiš na disketu <b>3.5" 2DD (720 KB)</b>. Disketa 2HD nefunguje (<code>ERROR 3</code>). Na macOS stačí aplikace DiskWrite, na Windows RawWrite for Windows. V příkazové řádce (macOS, Linux, Windows) zapisuj <b>po celých stopách</b>, tedy s <code>bs=9216</code>:</span><span class="en">Write the <code>.dsk</code> image to a <b>3.5" 2DD (720 KB)</b> floppy. 2HD disks do not work (<code>ERROR 3</code>). On macOS the DiskWrite app works, on Windows RawWrite for Windows. On the command line (macOS, Linux, Windows) write <b>whole tracks</b>, i.e. with <code>bs=9216</code>:</span></p>
+      <p><span class="cs">Obraz <code>.dsk</code> zapiš na disketu <b>3.5" 2DD (720 KB)</b>. Disketa 2HD nefunguje (<code>ERROR 3</code>). Na Windows použij aplikaci <b>DiskWrite</b>, ověřeno autorem. Na macOS a Linuxu v Terminálu zapisuj <b>po celých stopách</b>, tedy s <code>bs=9216</code>:</span><span class="en">Write the <code>.dsk</code> image to a <b>3.5" 2DD (720 KB)</b> floppy. 2HD disks do not work (<code>ERROR 3</code>). On Windows use the <b>DiskWrite</b> app (tested by the author). On macOS and Linux, in the terminal, write <b>whole tracks</b>, i.e. with <code>bs=9216</code>:</span></p>
       <pre class="cmd"><span class="c"># macOS: diskutil list → find your floppy (e.g. disk2)</span>
 diskutil unmountDisk /dev/disk2
 sudo dd if=QUALEA-500.dsk of=/dev/disk2 bs=9216
 diskutil eject /dev/disk2
 <span class="c"># Linux:</span>
-sudo dd if=QUALEA-500.dsk of=/dev/sdX bs=9216
-<span class="c"># Windows (dd for Windows, chrysocome.net), as administrator:</span>
-dd if=QUALEA-500.dsk of=\\.\a: bs=9216</pre>
+sudo dd if=QUALEA-500.dsk of=/dev/sdX bs=9216</pre>
       <p><span class="cs">Pozor: zápis po sektorech (<code>bs=512</code>, často s <code>conv=noerror,sync</code>) USB mechanikou dává disketu, kterou MC-500 přečte s chybou, a ani obraz Rolandu se pak nenahraje. Číslo disku si vždy ověř přes <code>diskutil list</code>, jinak přepíšeš jiný disk.</span><span class="en">Note: writing sector by sector (<code>bs=512</code>, often with <code>conv=noerror,sync</code>) on a USB drive produces a floppy the MC-500 reads with errors; even Roland's own image then fails to load. Always check the disk number with <code>diskutil list</code>, or you will overwrite another disk.</span></p></li>
     <li><h4><span class="cs">Zapoj MIDI</span><span class="en">Connect MIDI</span></h4>
       <p><span class="cs">Výchozí nastavení: stopy 1–4 hrají na kanálech 1–4 přes MIDI OUT 1, clock jde na oba výstupy. Klávesa <span class="k">UTIL/MIDI</span> otevře SETUP, kde se to dá změnit.</span><span class="en">Defaults: tracks 1–4 play on channels 1–4 via MIDI OUT 1, clock goes to both outputs. Press <span class="k">UTIL/MIDI</span> to open SETUP and change this.</span></p></li>
