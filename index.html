@@ -84,8 +84,12 @@ code,.k{font:500 .88em var(--mono);letter-spacing:.02em}
 /* rychlý start */
 ol.steps{list-style:none;padding:0;margin:0;counter-reset:s;display:grid;gap:18px}
 ol.steps li{counter-increment:s;display:grid;grid-template-columns:36px 1fr;gap:4px 12px}
-ol.steps li::before{content:counter(s);font:500 13px var(--mono);border:1.5px solid var(--fg);border-radius:50%;width:26px;height:26px;display:grid;place-items:center;grid-row:span 2}
+ol.steps li::before{content:counter(s);font:500 13px var(--mono);border:1.5px solid var(--fg);border-radius:50%;width:26px;height:26px;display:grid;place-items:center;grid-row:1}
 ol.steps p{margin:0;font-size:15px}
+ol.steps li>p,ol.steps li>pre{grid-column:2}
+ol.steps li>p+p,ol.steps li>pre+p{margin-top:8px}
+pre.cmd{margin:10px 0 0;padding:12px 14px;background:var(--soft);border:1px solid var(--line);border-radius:4px;font:13px/1.6 var(--mono);overflow-x:auto;max-width:100%;min-width:0}
+pre.cmd .c{color:var(--muted)}
 
 /* panel */
 .panelbox{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:28px;align-items:start}
@@ -203,7 +207,13 @@ html{scroll-behavior:smooth;scroll-padding-top:64px}
   <h2><span class="cs">Rychlý start</span><span class="en">Quick start</span></h2>
   <ol class="steps">
     <li><h4><span class="cs">Zapiš disketu</span><span class="en">Write the floppy</span></h4>
-      <p><span class="cs">Obraz <code>.dsk</code> zapiš na disketu <b>3.5" 2DD (720 KB)</b> (macOS: DiskWrite, Linux: <code>dd</code>). Disketa 2HD nefunguje (<code>ERROR 3</code>). Disketa obsahuje jen software QUALEA, žádné soubory Rolandu.</span><span class="en">Write the <code>.dsk</code> image to a <b>3.5" 2DD (720 KB)</b> floppy (macOS: DiskWrite, Linux: <code>dd</code>). 2HD disks do not work (<code>ERROR 3</code>). The disk holds only QUALEA software, no Roland files.</span></p></li>
+      <p><span class="cs">Obraz <code>.dsk</code> zapiš na disketu <b>3.5" 2DD (720 KB)</b>. Disketa 2HD nefunguje (<code>ERROR 3</code>). Na macOS stačí aplikace DiskWrite. V Terminálu (macOS i Linux) zapisuj <b>po celých stopách</b>, tedy s <code>bs=9216</code>:</span><span class="en">Write the <code>.dsk</code> image to a <b>3.5" 2DD (720 KB)</b> floppy. 2HD disks do not work (<code>ERROR 3</code>). On macOS the DiskWrite app works. In the terminal (macOS or Linux) write <b>whole tracks</b>, i.e. with <code>bs=9216</code>:</span></p>
+      <pre class="cmd"><span class="c"># macOS: diskutil list → find your floppy (e.g. disk2)</span>
+diskutil unmountDisk /dev/disk2
+sudo dd if=QUALEA-500.dsk of=/dev/disk2 bs=9216
+diskutil eject /dev/disk2
+<span class="c"># Linux: sudo dd if=QUALEA-500.dsk of=/dev/sdX bs=9216</span></pre>
+      <p><span class="cs">Pozor: zápis po sektorech (<code>bs=512</code>, často s <code>conv=noerror,sync</code>) USB mechanikou dává disketu, kterou MC-500 přečte s chybou, a ani obraz Rolandu se pak nenahraje. Číslo disku si vždy ověř přes <code>diskutil list</code>, jinak přepíšeš jiný disk.</span><span class="en">Note: writing sector by sector (<code>bs=512</code>, often with <code>conv=noerror,sync</code>) on a USB drive produces a floppy the MC-500 reads with errors; even Roland's own image then fails to load. Always check the disk number with <code>diskutil list</code>, or you will overwrite another disk.</span></p></li>
     <li><h4><span class="cs">Zapoj MIDI</span><span class="en">Connect MIDI</span></h4>
       <p><span class="cs">Výchozí nastavení: stopy 1–4 hrají na kanálech 1–4 přes MIDI OUT 1, clock jde na oba výstupy. Klávesa <span class="k">UTIL/MIDI</span> otevře SETUP, kde se to dá změnit.</span><span class="en">Defaults: tracks 1–4 play on channels 1–4 via MIDI OUT 1, clock goes to both outputs. Press <span class="k">UTIL/MIDI</span> to open SETUP and change this.</span></p></li>
     <li><h4><span class="cs">Zapni MC-500</span><span class="en">Power on</span></h4>
@@ -433,7 +443,7 @@ html{scroll-behavior:smooth;scroll-padding-top:64px}
     <div><i><span class="cs">nový typ</span><span class="en">new type</span></i><b>MKV</b><span class="cs">Markovův řetězec – naučí se přechody mezi stupni z nahrané stopy USR a generuje nové varianty „ve stejném stylu“.</span><span class="en">Markov chain – learns the transitions between scale degrees from a recorded USR track and generates new variations “in the same style”.</span></div>
     <div><i><span class="cs">nový typ</span><span class="en">new type</span></i><b>INF</b><span class="cs">Řada nekonečna (Per Nørgård) – deterministická soběpodobná řada intervalů, různé „rychlosti čtení“.</span><span class="en">Infinity series (Per Nørgård) – a deterministic self-similar series of intervals, read at different “speeds”.</span></div>
     <div><i><span class="cs">funkce</span><span class="en">feature</span></i><b>LFO</b><span class="cs">LFO na MIDI CC pro každou stopu – např. pomalé otevírání filtru synthu, synchronně s taktem.</span><span class="en">An LFO on MIDI CC for each track – e.g. slowly opening a synth's filter, in sync with the bar.</span></div>
-    <div><i><span class="cs">funkce</span><span class="en">feature</span></i><b>SYNC IN</b><span class="cs">Synchronizace z MIDI IN – MC-500 jako slave.</span><span class="en">Sync from MIDI IN – the MC-500 as a slave.</span></div>
+    <div><i><span class="cs">funkce</span><span class="en">feature</span></i><b>SYNC IN</b><span class="cs">Synchronizace z MIDI IN – MC-500 jako slave, např. za TR-6S nebo S-1.</span><span class="en">Sync from MIDI IN – the MC-500 as a slave, e.g. to a TR-6S or S-1.</span></div>
     <div><i><span class="cs">funkce</span><span class="en">feature</span></i><b>THRU</b><span class="cs">MIDI THRU – hraní z klávesnice nebo synthu přes MC-500 na další nástroj.</span><span class="en">MIDI THRU – play from a keyboard or synth through the MC-500 to another instrument.</span></div>
   </div>
 </div></section>
@@ -445,7 +455,7 @@ html{scroll-behavior:smooth;scroll-padding-top:64px}
     <img class="badge" src="https://img.shields.io/github/downloads/bretikov/QUALEA-500/total?label=downloads&amp;color=1d1d1f" alt="" onerror="this.remove()">
   </div>
   <p><span class="cs">QUALEA-500 je zdarma pro osobní použití. Starší verze a popis změn najdeš na <a href="https://github.com/bretikov/QUALEA-500/releases">GitHubu</a>.</span><span class="en">QUALEA-500 is free for personal use. Older versions and release notes are on <a href="https://github.com/bretikov/QUALEA-500/releases">GitHub</a>.</span></p>
-  <p class="muted"><span class="cs">Požadavky: Roland MC-500 MkII, disketa 3.5" 2DD, disketová mechanika pro zápis obrazu.</span><span class="en">Requirements: Roland MC-500 MkII, a 3.5" 2DD floppy, a floppy drive to write the image.</span></p>
+  <p class="muted"><span class="cs">Požadavky: Roland MC-500 MkII (otestováno i na MC-500B = MkI s deskou OM-500), disketa 3.5" 2DD, disketová mechanika pro zápis obrazu.</span><span class="en">Requirements: Roland MC-500 MkII (also tested on the MC-500B = MkI with the OM-500 board), a 3.5" 2DD floppy, a floppy drive to write the image.</span></p>
 </div></section>
 </main>
 
