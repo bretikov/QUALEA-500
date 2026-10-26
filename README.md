@@ -21,14 +21,21 @@ A 4-track loop MIDI sequencer with five sequencer types for the Roland MC-500 Mk
 ## Writing the floppy
 On Windows use the **DiskWrite** app (tested by the author). On macOS and Linux, use `dd` in the terminal and always write **whole tracks** (`bs=9216`):
 
-```
-# macOS – find your floppy first (e.g. disk2), double-check the number!
-diskutil list
-diskutil unmountDisk /dev/disk2
-sudo dd if=QUALEA-500.dsk of=/dev/disk2 bs=9216
-diskutil eject /dev/disk2
+**macOS**
 
-# Linux
+1. Insert the floppy, then run `diskutil list`. Find the disk that is external, physical and about 737.3 KB – that is your floppy (e.g. `/dev/disk4`). The number changes from time to time, so check it every time.
+2. ⚠️ Double-check the number. Writing to the wrong disk erases your SD card or hard drive.
+3. Write the image (replace `disk4` with your number):
+
+```
+diskutil unmountDisk /dev/disk4
+sudo dd if=QUALEA-500.dsk of=/dev/disk4 bs=9216
+diskutil eject /dev/disk4
+```
+
+**Linux**
+
+```
 sudo dd if=QUALEA-500.dsk of=/dev/sdX bs=9216
 ```
 

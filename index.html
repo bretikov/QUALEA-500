@@ -86,7 +86,11 @@ ol.steps{list-style:none;padding:0;margin:0;counter-reset:s;display:grid;gap:18p
 ol.steps li{counter-increment:s;display:grid;grid-template-columns:36px 1fr;gap:4px 12px}
 ol.steps li::before{content:counter(s);font:500 13px var(--mono);border:1.5px solid var(--fg);border-radius:50%;width:26px;height:26px;display:grid;place-items:center;grid-row:1}
 ol.steps p{margin:0;font-size:15px}
-ol.steps li>p,ol.steps li>pre{grid-column:2}
+ol.steps li>p,ol.steps li>pre,ol.steps li>ol{grid-column:2}
+ol.steps ol.sub{margin:10px 0 0;padding-left:20px;display:grid;gap:6px;font-size:15px}
+ol.steps ol.sub li{display:list-item;counter-increment:none}
+ol.steps ol.sub li::before{content:none}
+ol.steps ol.sub li.warn{font-weight:700}
 ol.steps li>p+p,ol.steps li>pre+p{margin-top:8px}
 pre.cmd{margin:10px 0 0;padding:12px 14px;background:var(--soft);border:1px solid var(--line);border-radius:4px;font:13px/1.6 var(--mono);overflow-x:auto;max-width:100%;min-width:0}
 pre.cmd .c{color:var(--muted)}
@@ -208,13 +212,19 @@ html{scroll-behavior:smooth;scroll-padding-top:64px}
   <ol class="steps">
     <li><h4><span class="cs">Zapiš disketu</span><span class="en">Write the floppy</span></h4>
       <p><span class="cs">Obraz <code>.dsk</code> zapiš na disketu <b>3.5" 2DD (720 KB)</b>. Disketa 2HD nefunguje (<code>ERROR 3</code>). Na Windows použij aplikaci <b>DiskWrite</b>, ověřeno autorem. Na macOS a Linuxu v Terminálu zapisuj <b>po celých stopách</b>, tedy s <code>bs=9216</code>:</span><span class="en">Write the <code>.dsk</code> image to a <b>3.5" 2DD (720 KB)</b> floppy. 2HD disks do not work (<code>ERROR 3</code>). On Windows use the <b>DiskWrite</b> app (tested by the author). On macOS and Linux, in the terminal, write <b>whole tracks</b>, i.e. with <code>bs=9216</code>:</span></p>
-      <pre class="cmd"><span class="c"># macOS: diskutil list → find your floppy (e.g. disk2)</span>
-diskutil unmountDisk /dev/disk2
-sudo dd if=QUALEA-500.dsk of=/dev/disk2 bs=9216
-diskutil eject /dev/disk2
+      <p style="margin-top:10px"><b>macOS</b></p>
+      <ol class="sub" style="margin-top:4px">
+        <li><span class="cs">Vlož disketu a spusť <code>diskutil list</code>. Najdi disk, který je external, physical a má asi 737.3 KB – to je tvoje disketa (např. <code>/dev/disk4</code>). Číslo se čas od času mění, proto ho kontroluj pokaždé.</span><span class="en">Insert the floppy, then run <code>diskutil list</code>. Find the disk that is external, physical and about 737.3 KB – that is your floppy (e.g. <code>/dev/disk4</code>). The number changes from time to time, so check it every time.</span></li>
+        <li class="warn"><span class="cs">⚠️ Číslo si dvakrát zkontroluj. Zápis na špatný disk smaže tvoji SD kartu nebo pevný disk.</span><span class="en">⚠️ Double-check the number. Writing to the wrong disk erases your SD card or hard drive.</span></li>
+        <li><span class="cs">Zapiš obraz (<code>disk4</code> nahraď svým číslem):</span><span class="en">Write the image (replace <code>disk4</code> with your number):</span></li>
+      </ol>
+      <pre class="cmd">diskutil unmountDisk /dev/disk4
+sudo dd if=QUALEA-500.dsk of=/dev/disk4 bs=9216
+diskutil eject /dev/disk4
+
 <span class="c"># Linux:</span>
 sudo dd if=QUALEA-500.dsk of=/dev/sdX bs=9216</pre>
-      <p><span class="cs">Pozor: zápis po sektorech (<code>bs=512</code>, často s <code>conv=noerror,sync</code>) USB mechanikou dává disketu, kterou MC-500 přečte s chybou, a ani obraz Rolandu se pak nenahraje. Číslo disku si vždy ověř přes <code>diskutil list</code>, jinak přepíšeš jiný disk.</span><span class="en">Note: writing sector by sector (<code>bs=512</code>, often with <code>conv=noerror,sync</code>) on a USB drive produces a floppy the MC-500 reads with errors; even Roland's own image then fails to load. Always check the disk number with <code>diskutil list</code>, or you will overwrite another disk.</span></p></li>
+      <p><span class="cs">Pozor: zápis po sektorech (<code>bs=512</code>, často s <code>conv=noerror,sync</code>) USB mechanikou dává disketu, kterou MC-500 přečte s chybou, a ani obraz Rolandu se pak nenahraje.</span><span class="en">Note: writing sector by sector (<code>bs=512</code>, often with <code>conv=noerror,sync</code>) on a USB drive produces a floppy the MC-500 reads with errors; even Roland's own image then fails to load.</span></p></li>
     <li><h4><span class="cs">Zapoj MIDI</span><span class="en">Connect MIDI</span></h4>
       <p><span class="cs">Výchozí nastavení: stopy 1–4 hrají na kanálech 1–4 přes MIDI OUT 1, clock jde na oba výstupy. Klávesa <span class="k">UTIL/MIDI</span> otevře SETUP, kde se to dá změnit.</span><span class="en">Defaults: tracks 1–4 play on channels 1–4 via MIDI OUT 1, clock goes to both outputs. Press <span class="k">UTIL/MIDI</span> to open SETUP and change this.</span></p></li>
     <li><h4><span class="cs">Zapni MC-500</span><span class="en">Power on</span></h4>
