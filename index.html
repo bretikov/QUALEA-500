@@ -64,12 +64,12 @@ code,.k{font:500 .88em var(--mono);letter-spacing:.02em}
 .dlbtn:hover{opacity:.88}
 .badge{height:20px}
 .dlsoon{display:inline-block;border:1.5px dashed var(--fg);border-radius:4px;padding:12px 18px;font-weight:700;letter-spacing:.04em}
-.road{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:20px}
+.road{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:20px}
 .road>div{background:var(--bg);padding:16px;display:flex;flex-direction:column;gap:4px}
 .road i{font:500 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;font-style:normal;color:var(--muted)}
 .road b{font:500 15px var(--mono);letter-spacing:.06em}
 .road>div>span{font-size:14px;color:var(--muted)}
-@media (max-width:860px){.road{grid-template-columns:repeat(2,1fr)}.road>div:last-child{grid-column:1/-1}}
+@media (max-width:860px){.road{grid-template-columns:repeat(2,1fr)}.road>div:last-child:nth-child(odd){grid-column:1/-1}}
 .typesintro{margin:32px 0 14px;font-size:16px}
 .types a{background:var(--bg);padding:16px;text-decoration:none;color:inherit;transition:background .15s}
 .types a:hover{background:var(--soft)}
@@ -177,8 +177,8 @@ html{scroll-behavior:smooth;scroll-padding-top:64px}
 <div class="wrap hero">
   <h1>QUALEA-500</h1>
   <p class="sub"><span class="cs">4stopý loop MIDI sekvencer s pěti typy sekvencerů pro Roland MC-500 MkII.</span><span class="en">A 4-track loop MIDI sequencer with five sequencer types for the Roland MC-500 MkII.</span></p>
-  <div class="meta">v3.0 · 3.5" 2DD · MIDI OUT 1 + 2 · MIDI IN</div>
-  <canvas class="lcd bootlcd" data-s="logo" data-static="1" aria-label="LCD: QUALEA v3.0"></canvas>
+  <div class="meta">v3.1 · 3.5" 2DD · MIDI OUT 1 + 2 · MIDI IN</div>
+  <canvas class="lcd bootlcd" data-s="logo" data-static="1" aria-label="LCD: QUALEA v3.1"></canvas>
 </div>
 
 <section id="about"><div class="wrap">
@@ -203,7 +203,8 @@ html{scroll-behavior:smooth;scroll-padding-top:64px}
     <li><span class="cs">64 patternů v paměti, 3 balíky na disketě, přepínání za chodu</span><span class="en">64 patterns in memory, 3 banks on floppy, switching while playing</span></li>
     <li><span class="cs">Song mode: 99 řádků, opakování, mute, LOOP</span><span class="en">Song mode: 99 rows, repeats, mute, LOOP</span></li>
     <li><span class="cs">Program change stop a bicích (např. TR-6S) na začátku taktu</span><span class="en">Program change for tracks and drums (e.g. TR-6S) on the bar line</span></li>
-    <li><span class="cs">Kanál a výstup každé stopy, MIDI clock na OUT1 / OUT2 / oba</span><span class="en">Channel and output per track, MIDI clock on OUT1 / OUT2 / both</span></li>
+    <li><span class="cs">Kanál a výstup každé stopy, MIDI clock na OUT1 / OUT2 / oba / vypnuto</span><span class="en">Channel and output per track, MIDI clock on OUT1 / OUT2 / both / off</span></li>
+    <li><span class="cs">Softwarové MIDI THRU na kanál a výstup zvolených stop</span><span class="en">Software MIDI THRU to the channel and output of chosen tracks</span></li>
     <li><span class="cs">Po zapnutí se obnoví rozpracovaný pattern</span><span class="en">Restores your work-in-progress pattern at power-on</span></li>
   </ul>
 </div></section>
@@ -456,7 +457,6 @@ sudo dd if=QUALEA-500.dsk of=/dev/sdX bs=9216</pre>
     <div><i><span class="cs">nový typ</span><span class="en">new type</span></i><b>INF</b><span class="cs">Řada nekonečna (Per Nørgård) – deterministická soběpodobná řada intervalů, různé „rychlosti čtení“.</span><span class="en">Infinity series (Per Nørgård) – a deterministic self-similar series of intervals, read at different “speeds”.</span></div>
     <div><i><span class="cs">funkce</span><span class="en">feature</span></i><b>LFO</b><span class="cs">LFO na MIDI CC pro každou stopu – např. pomalé otevírání filtru synthu, synchronně s taktem.</span><span class="en">An LFO on MIDI CC for each track – e.g. slowly opening a synth's filter, in sync with the bar.</span></div>
     <div><i><span class="cs">funkce</span><span class="en">feature</span></i><b>SYNC IN</b><span class="cs">Synchronizace z MIDI IN – MC-500 jako slave, např. za TR-6S nebo S-1.</span><span class="en">Sync from MIDI IN – the MC-500 as a slave, e.g. to a TR-6S or S-1.</span></div>
-    <div><i><span class="cs">funkce</span><span class="en">feature</span></i><b>THRU</b><span class="cs">MIDI THRU – hraní z klávesnice nebo synthu přes MC-500 na další nástroj.</span><span class="en">MIDI THRU – play from a keyboard or synth through the MC-500 to another instrument.</span></div>
   </div>
 </div></section>
 
@@ -481,7 +481,7 @@ const CG={};
 for(let ch=0;ch<4;ch++){const g=[0,0,0,0,0,0,0,0];for(let l=0;l<4;l++){let v=0;for(let q=0;q<4;q++)if(GRID[l][ch*4+q]==="1")v|=16>>q;g[2*l]=v;}CG[4+ch]=g;}
 
 const S={
-logo:{l:["  QUALEA   v3.0     ","      (C)2026       "],f:[]},
+logo:{l:["  QUALEA   v3.1     ","      (C)2026       "],f:[]},
 euc1:{l:["EUC o---#--o--o--o--","ST16 HT05  RT00 DIFW"],f:[
  [1,1,3,"TYP",["Typ stopy EUC, TUR, USR, GOL, CRD (jen kolečkem).","Track type EUC, TUR, USR, GOL, CRD (dial only)."]],
  [1,5,16,"ř. 1|line 1",["Pattern: o úder, - pauza, . úder ztlumený hustotou DE, # právě hraje, x za délkou stopy.","Pattern: o hit, - rest, . hit thinned out by density DE, # now playing, x beyond track length."]],
@@ -545,11 +545,11 @@ glob2:{l:["T1P T2P T3P T4P DRP ","001 OFF OFF OFF 005 "],f:[
 set1:{l:["T1/O T2/O T3/O T4/O ","01/1 02/1 03/B 10/2 "],f:[
  [2,1,2,"Tn",["MIDI kanál stopy 01–16. Dvě stopy smí mít stejný kanál.","MIDI channel of the track 01–16. Two tracks may share a channel."]],
  [2,4,1,"/O",["Výstup stopy: 1 = OUT1, 2 = OUT2, B = oba.","Track output: 1 = OUT1, 2 = OUT2, B = both."]]]},
-set2:{l:["DR/O SYNC IN    v3.0","16/B BOTH AL        "],f:[
+set2:{l:["DR/O SYNC IN THRU   ","16/B BOTH AL 1-3-   "],f:[
  [2,1,4,"DR/O",["Kanál a výstup pro program change bicích (DRP).","Channel and output for the drum program change (DRP)."]],
- [2,6,4,"SYNC",["Kam jde MIDI clock a start/stop: OUT1, OUT2, BOTH.","Where MIDI clock and start/stop go: OUT1, OUT2, BOTH."]],
- [2,11,2,"IN",["Kanál MIDI IN pro nahrávání USR: AL = všechny, 01–16.","MIDI IN channel for USR recording: AL = all, 01–16."]],
- [1,17,4,"v3.0",["Verze programu.","Software version."]]]},
+ [2,6,4,"SYNC",["Kam jde MIDI clock a start/stop: OUT1, OUT2, BOTH, nebo OFF = nikam (např. když přístroj dostává clock odjinud).","Where MIDI clock and start/stop go: OUT1, OUT2, BOTH, or OFF = nowhere (e.g. when a device gets its clock elsewhere)."]],
+ [2,11,2,"IN",["Kanál MIDI IN: AL = všechny, 01–16. Platí pro nahrávání USR i pro THRU.","MIDI IN channel: AL = all, 01–16. Applies to USR recording and THRU."]],
+ [2,14,4,"THRU",["MIDI THRU: co přijde na MIDI IN (noty, CC, pitch bend, aftertouch), se pošle na kanál a výstup zvolených stop. Číslice 1–4 přepínají stopy (- = ne), kolečkem doprava SLCT = vždy stopa vybraná klávesou TRACK. Clock, start/stop, SysEx a program change se nepřeposílají.","MIDI THRU: whatever arrives at MIDI IN (notes, CC, pitch bend, aftertouch) is sent to the channel and output of the chosen tracks. Digits 1–4 toggle tracks (- = off); dial right for SLCT = always the track selected with TRACK. Clock, start/stop, SysEx and program change are not passed on."]]]},
 prog:{l:["PROG BA  MOD  TRCK A","1564 02  DIA  1-34 3"],f:[
  [2,1,4,"PROG",["1–4 akordy jako stupně 1–7 (např. 1564). Kolečko vybírá hotové progrese, číslice zadají vlastní.","1–4 chords as scale degrees 1–7 (e.g. 1564). The dial picks presets, digits enter your own."]],
  [2,6,2,"BA",["Délka akordu 1–16 taktů.","Chord length 1–16 bars."]],
@@ -632,7 +632,7 @@ const GROUPS=[
   ["glob2","GLOBAL · strana 2","GLOBAL · page 2","FUNC · SKIP",null,null],
   ["prog","PROG · progrese","PROG · progression","TRACK T/R","Podržet T/R = progrese zap / vyp. Akord se mění na začátku taktu.","Hold T/R = progression on / off. Chords change on the bar line."],
   ["set1","SETUP · strana 1","SETUP · page 1","UTIL/MIDI","Nastavení MIDI se ukládá do balíku a obnoví se po zapnutí.","MIDI settings are saved in the bank and restored at power-on."],
-  ["set2","SETUP · strana 2","SETUP · page 2","UTIL/MIDI · SKIP",null,null],
+  ["set2","SETUP · strana 2","SETUP · page 2","UTIL/MIDI · SKIP","Softwarové MIDI THRU: hraj z klávesnice nebo kontroléru přes MC-500 na synth kterékoli stopy, i za chodu a při nahrávání.","Software MIDI THRU: play from a keyboard or controller through the MC-500 to the synth of any track, also while playing and recording."],
   ["patt","PATTERN","PATTERN","MODE/LOC","64 patternů v paměti, 3 balíky na disketě. Přepnutí za chodu drží synchron včetně program change.","64 patterns in memory, 3 banks on floppy. Switching while playing stays in sync, program changes included."],
   ["song","SONG","SONG","EDIT","Řetězení patternů. Podržet EDIT = song zap / vyp. STOP při zastavení = zpět na řádek 01.","Chains patterns. Hold EDIT = song on / off. STOP while stopped = back to row 01."]]]
 ];
@@ -653,7 +653,7 @@ const KEYS=[
  ["dial",424,618,156,156,"α-DIAL",null,["Hodnota ±1 (5 cvaknutí na krok). SHIFT+kolečko = velký krok u ST, HT, RT (±4), BPM (±10), SCL (±4), RNT (±12), DRP a T1P–T4P (±16).","Value ±1 (5 clicks per step). SHIFT+dial = big step for ST, HT, RT (±4), BPM (±10), SCL (±4), RNT (±12), DRP and T1P–T4P (±16)."],null],
  ["left",408,824,94,62,"←",null,["Předchozí pole. Na obrazovce stopy přejde přes všechny strany dokola.","Previous field. On track screens it wraps through all pages."],null],
  ["right",506,824,94,62,"→",null,["Další pole. Pole s pomlčkami přeskočí.","Next field. Skips fields shown as dashes."],null],
- ["util",660,630,65,64,"UTIL/MIDI","set1",["Obrazovka SETUP (kanály, výstupy, sync, MIDI IN). Znovu = zpět na stopu.","SETUP screen (channels, outputs, sync, MIDI IN). Press again = back to the track."],null],
+ ["util",660,630,65,64,"UTIL/MIDI","set1",["Obrazovka SETUP (kanály, výstupy, sync, MIDI IN, THRU). Znovu = zpět na stopu.","SETUP screen (channels, outputs, sync, MIDI IN, THRU). Press again = back to the track."],null],
  ["edit",727,630,65,64,"EDIT","song",["Krátce: obrazovka SONG. Podržet 0,5 s nebo SHIFT+EDIT: song zap / vyp.","Short press: SONG screen. Hold 0.5 s or SHIFT+EDIT: song on / off."],null],
  ["func",660,696,65,64,"FUNC","glob1",["Obrazovka GLOBAL (tempo, shuffle, stupnice, program change). Znovu = zpět.","GLOBAL screen (tempo, shuffle, scale, program change). Press again = back."],null],
  ["micro",727,696,65,64,"MICRO SCOPE",null,["Zatím volná.","Not used yet."],null],
