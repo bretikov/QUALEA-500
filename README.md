@@ -4,7 +4,7 @@ A 4-track loop MIDI sequencer with five sequencer types for the Roland MC-500 Mk
 
 **Web / manual:** https://bretikov.github.io/QUALEA-500/
 
-**Download:** [QUALEA-500.dsk](https://github.com/bretikov/QUALEA-500/releases/latest/download/QUALEA-500.dsk) · [all releases](https://github.com/bretikov/QUALEA-500/releases)
+**Download:** coming soon
 
 ## Sequencer types
 - **EUC** – Euclidean rhythms with a random melody
