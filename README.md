@@ -12,6 +12,7 @@ A 4-track loop MIDI sequencer with six sequencer types for the Roland MC-500 MkI
 - **USR** – your own recording from MIDI IN, overdub
 - **GOL** – Game of Life, 4 voices on a 4×16 grid
 - **CRD** – chords, rhythm templates, arpeggio, strum
+- **INF** – Per Nørgård's infinity series, self-similar melodies
 
 ## Requirements
 - Roland MC-500 MkII (also tested on the MC-500B = MkI with the OM-500 board)

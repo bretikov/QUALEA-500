@@ -57,14 +57,14 @@ code,.k{font:500 .88em var(--mono);letter-spacing:.02em}
 .k{border:1.3px solid currentColor;border-radius:3px;padding:0 5px;white-space:nowrap;font-size:.78em}
 
 /* about – vlastnosti */
-.types{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:0 0 28px}
+.types{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:0 0 28px}
 .dl{display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px;margin:0 0 20px}
 .dlbtn{display:inline-flex;gap:10px;align-items:baseline;background:var(--fg);color:var(--bg);text-decoration:none;font-weight:700;padding:12px 18px;border-radius:4px}
 .dlbtn code{font-weight:400;opacity:.75}
 .dlbtn:hover{opacity:.88}
 .badge{height:20px}
 .dlsoon{display:inline-block;border:1.5px dashed var(--fg);border-radius:4px;padding:12px 18px;font-weight:700;letter-spacing:.04em}
-.road{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:20px}
+.road{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:20px}
 .road>div{background:var(--bg);padding:16px;display:flex;flex-direction:column;gap:4px}
 .road i{font:500 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;font-style:normal;color:var(--muted)}
 .road b{font:500 15px var(--mono);letter-spacing:.06em}
@@ -75,7 +75,7 @@ code,.k{font:500 .88em var(--mono);letter-spacing:.02em}
 .types a:hover{background:var(--soft)}
 .types b span{color:var(--muted);font-weight:400;transition:transform .15s;display:inline-block}
 .types a:hover b span{transform:translateX(3px);color:var(--fg)}
-@media (max-width:700px){.types{grid-template-columns:repeat(2,1fr)}.types a:last-child{grid-column:1/-1}}
+@media (max-width:700px){.types{grid-template-columns:repeat(2,1fr)}}
 .types b{font:500 15px var(--mono);letter-spacing:.06em;display:block;margin-bottom:4px}
 .types a>span{font-size:14px;color:var(--muted)}
 .feat{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px 32px;padding:0;margin:0;list-style:none}
@@ -104,7 +104,7 @@ pre.cmd .c{color:var(--muted)}
 .panel .hit{fill:transparent;cursor:pointer;stroke:none}
 .panel .hit:hover,.panel .hit.on{fill:var(--fg);fill-opacity:.12}
 .panel .hit.on{stroke:var(--fg);stroke-width:3}
-.panel canvas.plcd{position:absolute;left:18%;top:48.125%;width:25.818%;height:5.625%}
+.panel canvas.plcd{position:absolute;left:20.636%;top:44.0625%;width:28.455%;height:4.479%}
 .keyinfo{border:1.5px solid var(--fg);border-radius:4px;padding:18px;min-height:180px;position:sticky;top:72px}
 .keyinfo .kname{font:500 14px var(--mono);letter-spacing:.06em;margin-bottom:10px;display:inline-block;border:1.5px solid var(--fg);border-radius:3px;padding:2px 8px}
 .keyinfo dl{margin:0;display:grid;gap:8px}
@@ -176,22 +176,23 @@ html{scroll-behavior:smooth;scroll-padding-top:64px}
 <main id="top">
 <div class="wrap hero">
   <h1>QUALEA-500</h1>
-  <p class="sub"><span class="cs">4stopý loop MIDI sekvencer s pěti typy sekvencerů pro Roland MC-500 MkII.</span><span class="en">A 4-track loop MIDI sequencer with five sequencer types for the Roland MC-500 MkII.</span></p>
-  <div class="meta">v3.1 · 3.5" 2DD · MIDI OUT 1 + 2 · MIDI IN</div>
-  <canvas class="lcd bootlcd" data-s="logo" data-static="1" aria-label="LCD: QUALEA v3.1"></canvas>
+  <p class="sub"><span class="cs">4stopý loop MIDI sekvencer se šesti typy sekvencerů pro Roland MC-500 MkII.</span><span class="en">A 4-track loop MIDI sequencer with six sequencer types for the Roland MC-500 MkII.</span></p>
+  <div class="meta">v3.2 · 3.5" 2DD · MIDI OUT 1 + 2 · MIDI IN</div>
+  <canvas class="lcd bootlcd" data-s="logo" data-static="1" aria-label="LCD: QUALEA v3.2"></canvas>
 </div>
 
 <section id="about"><div class="wrap">
   <h2><span class="cs">O projektu</span><span class="en">About</span></h2>
   <p class="lead"><span class="cs">MC-500 MkII z roku 1988 má výborný hardware: dvě MIDI výstupy, disketu, kolečko a pevné klávesy. QUALEA-500 z něj dělá generativní sekvencer pro melodie. Čtyři stopy běží ve smyčkách, každá může mít jiný typ, délku i rychlost. Výšky se vždy drží zvolené stupnice a progrese akordů.</span><span class="en">The 1988 MC-500 MkII has great hardware: two MIDI outputs, a floppy drive, a data dial and solid keys. QUALEA-500 turns it into a generative sequencer for melodies. Four tracks run as loops, each with its own type, length and speed. Pitches always stay within the chosen scale and chord progression.</span></p>
 
-  <p class="typesintro"><span class="cs">Každá ze čtyř stop může použít jeden z <b>pěti typů sekvenceru</b>:</span><span class="en">Each of the four tracks can use one of <b>five sequencer types</b>:</span></p>
+  <p class="typesintro"><span class="cs">Každá ze čtyř stop může použít jeden z <b>šesti typů sekvenceru</b>:</span><span class="en">Each of the four tracks can use one of <b>six sequencer types</b>:</span></p>
   <div class="types">
     <a href="#s-euc1"><b>EUC <span aria-hidden="true">→</span></b><span class="cs">Euklidovské rytmy s náhodnou melodií</span><span class="en">Euclidean rhythms with a random melody</span></a>
     <a href="#s-tur"><b>TUR <span aria-hidden="true">→</span></b><span class="cs">Turing machine – posuvný registr s mutací</span><span class="en">Turing machine – shift register with mutation</span></a>
     <a href="#s-usr"><b>USR <span aria-hidden="true">→</span></b><span class="cs">Vlastní nahrávka z MIDI IN, overdub</span><span class="en">Your own recording from MIDI IN, overdub</span></a>
     <a href="#s-gol1"><b>GOL <span aria-hidden="true">→</span></b><span class="cs">Hra života – 4 hlasy na mřížce 4×16</span><span class="en">Game of Life – 4 voices on a 4×16 grid</span></a>
     <a href="#s-crd1"><b>CRD <span aria-hidden="true">→</span></b><span class="cs">Akordy, rytmické šablony, arpeggio, strum</span><span class="en">Chords, rhythm templates, arpeggio, strum</span></a>
+    <a href="#s-inf1"><b>INF <span aria-hidden="true">→</span></b><span class="cs">Řada nekonečna Pera Nørgårda – soběpodobné melodie</span><span class="en">Per Nørgård's infinity series – self-similar melodies</span></a>
   </div>
 
   <ul class="feat">
@@ -247,59 +248,56 @@ sudo dd if=QUALEA-500.dsk of=/dev/sdX bs=9216</pre>
 
 <rect x="10" y="10" width="1080" height="940" rx="18" fill="none" stroke="currentColor" stroke-width="5"/>
 <line x1="10" y1="560" x2="1090" y2="560" stroke="currentColor" stroke-width="2.5"/>
-<rect x="30" y="70" width="640" height="310" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>
+<line x1="10" y1="70" x2="686" y2="70" stroke="currentColor" stroke-width="2"/>
 <text x="62" y="150" font-size="46" text-anchor="start" font-weight="700" letter-spacing="2">QUALEA-500</text>
 <text x="64" y="182" font-size="17" text-anchor="start" font-weight="400" letter-spacing="1">4-track loop MIDI sequencer</text>
-<line x1="30" y1="385" x2="670" y2="385" stroke="currentColor" stroke-width="2"/>
-<line x1="115" y1="385" x2="115" y2="555" stroke="currentColor" stroke-width="1.5"/>
-<line x1="565" y1="385" x2="565" y2="555" stroke="currentColor" stroke-width="1.5"/>
-<rect x="190" y="456" width="300" height="66" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>
-<rect x="198" y="462" width="284" height="54" rx="1" fill="none" stroke="currentColor" stroke-width="1"/>
-<rect x="203.0" y="466" width="11.5" height="20" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="216.8" y="466" width="11.5" height="20" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="230.6" y="466" width="11.5" height="20" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="244.4" y="466" width="11.5" height="20" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="258.2" y="466" width="11.5" height="20" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="272.0" y="466" width="11.5" height="20" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="285.8" y="466" width="11.5" height="20" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="299.6" y="466" width="11.5" height="20" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="313.4" y="466" width="11.5" height="20" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="327.2" y="466" width="11.5" height="20" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="341.0" y="466" width="11.5" height="20" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="354.8" y="466" width="11.5" height="20" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="368.6" y="466" width="11.5" height="20" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="382.4" y="466" width="11.5" height="20" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="396.20000000000005" y="466" width="11.5" height="20" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="410.0" y="466" width="11.5" height="20" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="423.8" y="466" width="11.5" height="20" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="437.6" y="466" width="11.5" height="20" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="451.4" y="466" width="11.5" height="20" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="465.2" y="466" width="11.5" height="20" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="203.0" y="490" width="11.5" height="20" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="216.8" y="490" width="11.5" height="20" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="230.6" y="490" width="11.5" height="20" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="244.4" y="490" width="11.5" height="20" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="258.2" y="490" width="11.5" height="20" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="272.0" y="490" width="11.5" height="20" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="285.8" y="490" width="11.5" height="20" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="299.6" y="490" width="11.5" height="20" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="313.4" y="490" width="11.5" height="20" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="327.2" y="490" width="11.5" height="20" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="341.0" y="490" width="11.5" height="20" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="354.8" y="490" width="11.5" height="20" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="368.6" y="490" width="11.5" height="20" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="382.4" y="490" width="11.5" height="20" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="396.20000000000005" y="490" width="11.5" height="20" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="410.0" y="490" width="11.5" height="20" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="423.8" y="490" width="11.5" height="20" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="437.6" y="490" width="11.5" height="20" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="451.4" y="490" width="11.5" height="20" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="465.2" y="490" width="11.5" height="20" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
+<rect x="137" y="383" width="481" height="144" style="fill:var(--lcd-frame)"/>
+<rect x="227" y="423" width="313" height="43" style="fill:var(--bg)"/>
+<rect x="232.0" y="427.0" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
+<rect x="247.2" y="427.0" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
+<rect x="262.4" y="427.0" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
+<rect x="277.6" y="427.0" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
+<rect x="292.8" y="427.0" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
+<rect x="308.0" y="427.0" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
+<rect x="323.2" y="427.0" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
+<rect x="338.4" y="427.0" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
+<rect x="353.6" y="427.0" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
+<rect x="368.79999999999995" y="427.0" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
+<rect x="384.0" y="427.0" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
+<rect x="399.2" y="427.0" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
+<rect x="414.4" y="427.0" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
+<rect x="429.6" y="427.0" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
+<rect x="444.79999999999995" y="427.0" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
+<rect x="460.0" y="427.0" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
+<rect x="475.2" y="427.0" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
+<rect x="490.4" y="427.0" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
+<rect x="505.59999999999997" y="427.0" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
+<rect x="520.8" y="427.0" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
+<rect x="232.0" y="445.5" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
+<rect x="247.2" y="445.5" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
+<rect x="262.4" y="445.5" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
+<rect x="277.6" y="445.5" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
+<rect x="292.8" y="445.5" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
+<rect x="308.0" y="445.5" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
+<rect x="323.2" y="445.5" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
+<rect x="338.4" y="445.5" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
+<rect x="353.6" y="445.5" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
+<rect x="368.79999999999995" y="445.5" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
+<rect x="384.0" y="445.5" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
+<rect x="399.2" y="445.5" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
+<rect x="414.4" y="445.5" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
+<rect x="429.6" y="445.5" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
+<rect x="444.79999999999995" y="445.5" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
+<rect x="460.0" y="445.5" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
+<rect x="475.2" y="445.5" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
+<rect x="490.4" y="445.5" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
+<rect x="505.59999999999997" y="445.5" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
+<rect x="520.8" y="445.5" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
 <path d="M686 22 V510 M686 510 L676 540 V560 M1074 22 V510 L1080 540 V560" fill="none" stroke="currentColor" stroke-width="2"/>
 <line x1="686" y1="510" x2="1074" y2="510" stroke="currentColor" stroke-width="2"/>
-<rect x="700" y="517" width="360" height="38" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>
-<rect x="726" y="531" width="250" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/>
-<rect x="1000" y="528" width="40" height="16" rx="3" fill="none" stroke="currentColor" stroke-width="1.5"/>
+<rect x="700" y="517" width="360" height="38" rx="2" fill="currentColor"/>
+<rect x="726" y="531" width="250" height="10" rx="2" fill="none" style="stroke:var(--bg)" stroke-width="1.5"/>
+<rect x="1000" y="528" width="40" height="16" rx="3" fill="none" style="stroke:var(--bg)" stroke-width="1.5"/>
 <line x1="380" y1="595" x2="380" y2="948" stroke="currentColor" stroke-width="2.5"/>
 <line x1="10" y1="595" x2="1090" y2="595" stroke="currentColor" stroke-width="2"/>
 <rect x="30" y="601" width="340" height="78" rx="3" fill="none" stroke="currentColor" stroke-width="1.5"/>
@@ -454,7 +452,6 @@ sudo dd if=QUALEA-500.dsk of=/dev/sdX bs=9216</pre>
   <p><span class="cs">Co se chystá do dalších verzí. Pořadí i podoba se ještě můžou změnit.</span><span class="en">What is planned for future versions. Order and details may still change.</span></p>
   <div class="road">
     <div><i><span class="cs">nový typ</span><span class="en">new type</span></i><b>MKV</b><span class="cs">Markovův řetězec – naučí se přechody mezi stupni z nahrané stopy USR a generuje nové varianty „ve stejném stylu“.</span><span class="en">Markov chain – learns the transitions between scale degrees from a recorded USR track and generates new variations “in the same style”.</span></div>
-    <div><i><span class="cs">nový typ</span><span class="en">new type</span></i><b>INF</b><span class="cs">Řada nekonečna (Per Nørgård) – deterministická soběpodobná řada intervalů, různé „rychlosti čtení“.</span><span class="en">Infinity series (Per Nørgård) – a deterministic self-similar series of intervals, read at different “speeds”.</span></div>
     <div><i><span class="cs">funkce</span><span class="en">feature</span></i><b>LFO</b><span class="cs">LFO na MIDI CC pro každou stopu – např. pomalé otevírání filtru synthu, synchronně s taktem.</span><span class="en">An LFO on MIDI CC for each track – e.g. slowly opening a synth's filter, in sync with the bar.</span></div>
     <div><i><span class="cs">funkce</span><span class="en">feature</span></i><b>SYNC IN</b><span class="cs">Synchronizace z MIDI IN – MC-500 jako slave, např. za TR-6S nebo S-1.</span><span class="en">Sync from MIDI IN – the MC-500 as a slave, e.g. to a TR-6S or S-1.</span></div>
   </div>
@@ -481,9 +478,9 @@ const CG={};
 for(let ch=0;ch<4;ch++){const g=[0,0,0,0,0,0,0,0];for(let l=0;l<4;l++){let v=0;for(let q=0;q<4;q++)if(GRID[l][ch*4+q]==="1")v|=16>>q;g[2*l]=v;}CG[4+ch]=g;}
 
 const S={
-logo:{l:["  QUALEA   v3.1     ","      (C)2026       "],f:[]},
+logo:{l:["  QUALEA   v3.2     ","      (C)2026       "],f:[]},
 euc1:{l:["EUC o---#--o--o--o--","ST16 HT05  RT00 DIFW"],f:[
- [1,1,3,"TYP",["Typ stopy EUC, TUR, USR, GOL, CRD (jen kolečkem).","Track type EUC, TUR, USR, GOL, CRD (dial only)."]],
+ [1,1,3,"TYP",["Typ stopy EUC, TUR, USR, GOL, CRD, INF (jen kolečkem).","Track type EUC, TUR, USR, GOL, CRD, INF (dial only)."]],
  [1,5,16,"ř. 1|line 1",["Pattern: o úder, - pauza, . úder ztlumený hustotou DE, # právě hraje, x za délkou stopy.","Pattern: o hit, - rest, . hit thinned out by density DE, # now playing, x beyond track length."]],
  [2,3,2,"ST",["Délka stopy 1–16 kroků (16tin). Každá stopa má vlastní délku → polyrytmy.","Track length 1–16 steps (16ths). Each track has its own length → polyrhythms."]],
  [2,8,2,"HT",["Počet úderů 0–ST, rozložených euklidovsky co nejrovnoměrněji.","Number of hits 0–ST, spread as evenly as possible (Euclidean)."]],
@@ -534,6 +531,16 @@ crd4:{l:["CRD o=--o=--o=--o=--","CD/2 AS/16  CHSE7 IN"],f:[
  [2,8,4,"AS",["Rychlost arpu /32, /16T, /16, /8T, /8, /4, nezávisle na CD.","Arp rate /32, /16T, /16, /8T, /8, /4, independent of CD."]],
  [2,15,3,"CH",["Akord TRI, SE7, SU2, SU4, PWR ze stupnice od stupně progrese.","Chord TRI, SE7, SU2, SU4, PWR built from the scale on the progression degree."]],
  [2,20,1,"IV",["Obrat 0–3, N = nejblíž předchozímu akordu, R = náhodně.","Inversion 0–3, N = closest to the previous chord, R = random."]]]},
+inf1:{l:["INF o--o--#-o--o--o-","LN16 SK03  HT06 RT00"],f:[
+ [1,5,16,"ř. 1|line 1",["Rytmus: o úder, - pauza, . ztlumeno hustotou DE, # hraje. Euklidovský, nebo z řady (HT TM).","Rhythm: o hit, - rest, . thinned out by DE, # playing. Euclidean, or from the series (HT TM)."]],
+ [2,3,2,"LN",["Délka rytmu 1–16 kroků.","Rhythm length 1–16 steps."]],
+ [2,8,2,"SK",["Krok čtení řady 01–15, jen lichá čísla: hraje každý SK-tý člen. 01 plynulá melodie, 05 klidná kolem kořene, 09 ticho a velké skoky, 15 skoro ostinato.","Reading step 01–15, odd values only: every SK-th term plays. 01 smooth melody, 05 calm around the root, 09 quiet with big leaps, 15 almost an ostinato."]],
+ [2,14,2,"HT",["Údery: 00–LN euklidovsky, nebo TM (kolečkem pod 00) = úder tam, kde je člen řady lichý (Thue-Morse).","Hits: 00–LN Euclidean, or TM (dial below 00) = a hit wherever the series term is odd (Thue-Morse)."]],
+ [2,19,2,"RT",["Rotace euklidovského rytmu (u TM bez vlivu).","Rotation of the Euclidean rhythm (no effect with TM)."]]]},
+inf5:{l:["INF o--o--#-o--o--o-","IX00 LP3/4  IT1     "],f:[
+ [2,3,2,"IX",["Začátek v řadě 00–15. Jiný začátek = jiná melodie (u TM i jiný rytmus). REC vybere náhodný.","Start position in the series 00–15. Another start = another melody (and rhythm with TM). REC picks a random one."]],
+ [2,8,3,"LP",["Smyčka melodie: OF = řada běží dál a neopakuje se; /4, /2, 1, 2, 4 = po čtvrt taktu až 4 taktech začne melodie znovu od IX. 3/4 = hraje 3. ze 4 taktů.","Melody loop: OF = the series runs on and never repeats; /4, /2, 1, 2, 4 = after a quarter bar up to 4 bars the melody restarts from IX. 3/4 = playing bar 3 of 4."]],
+ [2,15,1,"IT",["Interval 1–4: násobí čísla řady – stejný tvar melodie, větší skoky.","Interval 1–4: multiplies the series values – same melodic shape, bigger leaps."]]]},
 glob1:{l:["BPM  SFL  RNT  SCL  ","120  +25  A2   MIN  "],f:[
  [2,1,3,"BPM",["Tempo 20–200.","Tempo 20–200."]],
  [2,6,3,"SFL",["Shuffle −50 až +50 % (posouvá 2. a 4. 16tinu doby, +33 = triola). MIDI clock zůstává rovný.","Shuffle −50 to +50 % (moves the 2nd and 4th sixteenth of each beat, +33 = triplet). MIDI clock stays straight."]],
@@ -572,38 +579,16 @@ song:{l:["RW PTRN RPT MUTE  SM","02 A-05 3/4 1-34  ON"],f:[
  [2,19,2,"SM",["Song mode ON / OF. Totéž co podržet EDIT. ON = PLAY hraje od řádku 01.","Song mode ON / OF, same as holding EDIT. ON = PLAY starts from row 01."]]]}
 };
 const GOLHOW={
-cs:["<b>Mřížka.</b> 4 dráhy A–D × 16 kroků. Okraje navazují dokola: za krokem 16 je krok 1 a pod dráhou D je znovu A. Na displeji tvoří mřížku 4 znaky, každý jedna doba (4 kroky). Dráhy jsou pod sebou a bod pod dráhou ukazuje, kde se právě hraje.",
-"<b>Dráhy = hlasy.</b> Každá dráha běží jako malý sekvencer a živá buňka v ní je nota. Výšku dráhy určuje tón akordu CH: A = kořen, B = 2. tón (tercie), C = 3. tón (kvinta), D = 4. tón (septima u SE7, u trojzvuku kořen o oktávu výš). Posunout ji můžou IV, OC, stupnice i progrese, takže hraje vždy v harmonii.",
-"<b>Generace.</b> Na začátku každého taktu (u CD /2 jednou za 2 takty) se mřížka přepočítá podle Conwayových pravidel. Každá buňka má 8 sousedů, i ve vedlejších drahách. Živá buňka se 2 nebo 3 živými sousedy přežije, prázdná buňka se právě 3 sousedy ožije a ostatní zaniknou. Hlasy tak na sebe navzájem působí. První takt po PLAY hraje beze změny.",
-"<b>Co zazní.</b> Hrají všechny živé buňky. Filtry ubírají: BR ON pustí jen nově narozené buňky (vznikne řídký, pohyblivý rytmus), DE nechá v dráze jen údery na silných dobách, PR losuje šanci noty a TI spojí notu s další buňkou dráhy.",
-"<b>Vývoj.</b> Vzor se časem ustálí, kmitá nebo vymře. MU do něj vnáší náhodné změny. Když mřížka vymře, nebo se 4 takty nemění či jen přeskakuje mezi dvěma stavy, nastoupí RS: RN vytvoří nové osévání, SA zopakuje poslední (stejný „příběh“ znovu) a OF nechá ticho. Kluzák a další putující tvary se nezastavují a hrají dál.",
-"<b>Ruce na stroji.</b> REC mřížku ručně znovu oseje. PAUSE zastaví vývoj, takže se aktuální mřížka opakuje jako běžný pattern, a další PAUSE vývoj zase pustí.",
-"<b>Původ.</b> GOL vychází z Hry života (Game of Life), buněčného automatu, který v roce 1970 vymyslel matematik John Horton Conway. Proslavil ho sloupek Martina Gardnera v časopise Scientific American. QUALEA používá původní pravidla B3/S23 na mřížce, jejíž okraje navazují dokola."],
-en:["<b>Grid.</b> 4 lanes A–D × 16 steps. The edges wrap: after step 16 comes step 1, and below lane D is lane A again. On the display the grid takes 4 characters, one per beat (4 steps). The lanes are stacked and the dot under a lane shows where it is playing.",
-"<b>Lanes = voices.</b> Each lane runs like a small sequencer, and a live cell in it is a note. Its pitch is a tone of chord CH: A = root, B = 2nd tone (third), C = 3rd tone (fifth), D = 4th tone (seventh with SE7, the root an octave up with a triad). IV, OC, the scale and the progression can shift it, so it always stays in harmony.",
-"<b>Generations.</b> At the start of every bar (once every 2 bars with CD /2) the grid is recalculated by Conway's rules. Each cell has 8 neighbours, including cells in the adjacent lanes. A live cell with 2 or 3 live neighbours survives, an empty cell with exactly 3 comes alive, and all others die. This is how the voices act on each other. The first bar after PLAY plays unchanged.",
-"<b>What sounds.</b> Every live cell plays. Filters thin it out: BR ON plays only newborn cells (a sparse, moving rhythm), DE keeps only the hits on strong beats in each lane, PR rolls a chance per note, and TI ties a note to the next cell in its lane.",
-"<b>Evolution.</b> Over time a pattern settles, oscillates or dies out. MU adds random changes. When the grid dies, or stays the same for 4 bars, or just flips between two states, RS takes over: RN makes a new random seed, SA repeats the last seed (the same “story” again), OF leaves silence. Gliders and other travelling shapes are not stopped and keep playing.",
-"<b>Hands on.</b> REC reseeds the grid by hand. PAUSE stops evolution so the current grid repeats like a normal pattern, and pressing PAUSE again lets it evolve.",
-"<b>Origin.</b> GOL is based on the Game of Life, a cellular automaton devised in 1970 by the mathematician John Horton Conway and made famous by Martin Gardner's column in Scientific American. QUALEA uses the original B3/S23 rules on a grid whose edges wrap around."],
+cs:["<b>Mřížka.</b> 4 řádky (dráhy A–D) po 16 krocích. Na displeji jsou to 4 znaky, každý = 1 doba.", "<b>Dráhy = hlasy.</b> Každá dráha je jeden tón akordu CH: A kořen, B tercie, C kvinta, D septima (u trojzvuku kořen o oktávu výš). Plná buňka = nota.", "<b>Generace.</b> Na začátku každého taktu se mřížka změní podle jednoduchých pravidel: buňka se 2–3 sousedy přežije, prázdná se 3 sousedy ožije, ostatní zmizí. Sousedé jsou i ve vedlejších drahách, proto se hlasy navzájem ovlivňují.", "<b>Co zazní.</b> Hrají plné buňky. BR ON pustí jen nově vzniklé, DE nechá jen silné doby, PR losuje, TI spojí noty za sebou.", "<b>Vývoj.</b> Vzor se časem ustálí nebo vymře. MU přidává náhodné změny, RS rozhodne, co dál: nová mřížka, opakování té poslední, nebo ticho.", "<b>Ruce na stroji.</b> REC = nová náhodná mřížka. PAUSE zastaví vývoj a mřížka hraje dokola.", "<b>Původ.</b> GOL vychází z Hry života (Game of Life), buněčného automatu, který v roce 1970 vymyslel matematik John Horton Conway. Proslavil ho sloupek Martina Gardnera v časopise Scientific American. QUALEA používá původní pravidla B3/S23 na mřížce, jejíž okraje navazují dokola."],
+en:["<b>Grid.</b> 4 rows (lanes A–D) of 16 steps. On the display they are 4 characters, one per beat.", "<b>Lanes = voices.</b> Each lane is one note of chord CH: A root, B third, C fifth, D seventh (or the root an octave up with a triad). A filled cell = a note.", "<b>Generations.</b> At the start of every bar the grid changes by simple rules: a cell with 2–3 neighbours survives, an empty cell with 3 comes alive, the rest disappear. Neighbours include the adjacent lanes, so the voices affect each other.", "<b>What sounds.</b> Filled cells play. BR ON plays only new cells, DE keeps only strong beats, PR rolls a chance, TI ties notes together.", "<b>Evolution.</b> Over time a pattern settles or dies out. MU adds random changes, RS decides what next: a new grid, the last one again, or silence.", "<b>Hands on.</b> REC = a new random grid. PAUSE stops the evolution and the grid loops.", "<b>Origin.</b> GOL is based on the Game of Life, a cellular automaton devised in 1970 by the mathematician John Horton Conway and made famous by Martin Gardner's column in Scientific American. QUALEA uses the original B3/S23 rules on a grid whose edges wrap around."],
 cap:["Mřížka z náhledu displeje. Akord SE7 v C MAJ: A = C, B = E, C = G, D = B. Na každém kroku hrají všechny živé buňky jako akord (PL ON) nebo jen jedna z nich (HI / LO / AR).",
 "The grid from the display preview. Chord SE7 in C MAJ: A = C, B = E, C = G, D = B. On each step all live cells play as a chord (PL ON) or just one of them (HI / LO / AR)."]};
 function golFig(){const nt=["C","E","G","B"];let h='<figure class="golfig" style="margin:0"><table>';
  for(let l=0;l<4;l++){h+=`<tr><th>${"ABCD"[l]} ${nt[l]}</th>`;for(let q=0;q<16;q++)h+=`<td class="${GRID[l][q]==="1"?"on":""}${q%4===0&&q?" b4":""}"></td>`;h+="</tr>";}
  h+=`<tr><th></th>${[1,2,3,4].map(b=>`<th colspan="4" style="text-align:left;color:var(--muted)">${b}</th>`).join("")}</tr></table><figcaption>${GOLHOW.cap[L()]}</figcaption></figure>`;return h;}
 const TURHOW={
-cs:["<b>Registr.</b> Stopa má 16bitový posuvný registr, smyčku jedniček a nul o délce LN (1–16 kroků). S každým krokem stopy se posune o jedno místo, vždy dopředu (DI nemá vliv). Posouvá se i ve ztlumené stopě.",
-"<b>Výška.</b> Na kroku p se čte 8 bitů od pozice p (dokola po délce LN). Vznikne číslo 0–255, které se převede na tón stejně jako náhodná melodie EUC: přes stupnici, OR, OC a progresi. Malé číslo dá nízký tón, velké vysoký. CT umí jen RND (celá stupnice) nebo CHD (jen tóny akordu).",
-"<b>Mutace CG.</b> Když registr projde krokem p, bit p se se šancí CG/10 převrátí. CG 00 smyčku zamkne a opakuje se beze změny. Malé CG melodii pomalu proměňuje, takže motiv zůstává poznat. CG 10 převrací vždy: smyčka je dvakrát delší a druhé kolo je zrcadlové (vysoké tóny místo nízkých). CG je souměrné kolem 05: CG 07 mění stejně často jako 03, ale melodie se spíš střídá se svým zrcadlem.",
-"<b>Rytmus HT.</b> HT 00–LN dá euklidovský rytmus jako u EUC (RT a DE platí), registr určuje jen výšky. HT BT (kolečkem pod 00) dá úder tam, kde je v registru 1. Rytmus i melodie pak vycházejí z registru a s mutací se mění oba. Řádek 1 tehdy ukazuje přímo bity registru.",
-"<b>Ruce na stroji.</b> REC vygeneruje nový náhodný registr. PAUSE registr zamrazí: zrovna hrající smyčka se drží beze změny, dokud PAUSE nestiskneš znovu. Hodnota CG se pamatuje a během zamrazení ukazuje --.",
-"<b>Původ.</b> TUR vychází z modulu Turing Machine od Music Thing Modular (Tom Whitwell)."],
-en:["<b>Register.</b> The track has a 16-bit shift register, a loop of ones and zeros of length LN (1–16 steps). It moves one place with every track step, always forward (DI has no effect). It moves even when the track is muted.",
-"<b>Pitch.</b> At step p, 8 bits are read from position p (wrapping around within LN). This gives a number 0–255 that becomes a note just like the EUC random melody: through the scale, OR, OC and the progression. A small number gives a low note, a large one a high note. CT can only be RND (whole scale) or CHD (chord tones only).",
-"<b>Change CG.</b> As the register passes step p, bit p flips with a chance of CG/10. CG 00 locks the loop and it repeats unchanged. A small CG slowly reshapes the melody so the motif stays recognisable. CG 10 always flips: the loop becomes twice as long and the second pass is a mirror image (high notes instead of low). CG is symmetric around 05: CG 07 changes as often as 03, but the melody tends to alternate with its mirror image.",
-"<b>Rhythm HT.</b> HT 00–LN gives a Euclidean rhythm like EUC (RT and DE apply), and the register sets only the pitches. HT BT (dial below 00) places a hit wherever the register holds a 1. Rhythm and melody then both come from the register and both change with mutation. Line 1 then shows the register bits directly.",
-"<b>Hands on.</b> REC generates a new random register. PAUSE freezes the register: the loop playing now repeats unchanged until you press PAUSE again. The CG value is kept and shows -- while frozen.",
-"<b>Origin.</b> TUR is based on the Turing Machine module by Music Thing Modular (Tom Whitwell)."],
+cs:["<b>Registr.</b> Smyčka 16 jedniček a nul o délce LN. S každým krokem se posune o jedno místo.", "<b>Výška.</b> 8 políček v okénku dá číslo: malé = nízký tón, velké = vysoký, vždy ve stupnici.", "<b>Mutace CG.</b> Jak často se políčko při průchodu otočí. 00 = smyčka se opakuje, nízké hodnoty = pomalé změny, 05 = nejvíc náhody, 10 = dvojnásobná smyčka, druhé kolo zrcadlově.", "<b>Rytmus HT.</b> Euklidovský jako u EUC, nebo BT = úder tam, kde je v registru 1.", "<b>Ruce na stroji.</b> REC = nový náhodný registr. PAUSE zamrazí právě hrající smyčku.", "<b>Původ.</b> TUR vychází z modulu Turing Machine od Music Thing Modular (Tom Whitwell)."],
+en:["<b>Register.</b> A loop of 16 ones and zeros, LN steps long. It moves one place with every step.", "<b>Pitch.</b> 8 cells in the window make a number: small = low note, large = high note, always in the scale.", "<b>Change CG.</b> How often a cell flips as it passes. 00 = the loop repeats, low values = slow changes, 05 = most random, 10 = a double-length loop, the second pass mirrored.", "<b>Rhythm HT.</b> Euclidean as in EUC, or BT = a hit wherever the register holds a 1.", "<b>Hands on.</b> REC = a new random register. PAUSE freezes the loop playing now.", "<b>Origin.</b> TUR is based on the Turing Machine module by Music Thing Modular (Tom Whitwell)."],
 cap:["Registr s délkou LN 16. Čára pod ním je 8bitové okno čtené na kroku 4. Další krok posune okno o jedno místo, a tím vznikne další tón. Mutace může převrátit bit na začátku okna.",
 "A register with LN 16. The bar below it is the 8-bit window read at step 4. The next step moves the window by one place, which gives the next note. Mutation may flip the bit at the start of the window."]};
 const REG="0111011001010111", RP=3;
@@ -613,7 +598,16 @@ function turFig(){let h='<figure class="golfig" style="margin:0"><table><tr><th>
  h+=`</tr><tr><th></th>${[1,5,9,13].map(b=>`<th colspan="4" style="text-align:left;color:var(--muted)">${b}</th>`).join("")}</tr></table>`;
  let bits="";for(let i=0;i<8;i++)bits+=REG[(RP+i)%16];const v=parseInt(bits,2);
  h+=`<div class="val">${bits} = ${v} / 255 → ${lang==="cs"?"spíš vyšší tón":"a fairly high note"}</div><figcaption>${TURHOW.cap[L()]}</figcaption></figure>`;return h;}
-const ORIG={tur:[TURHOW.cs.pop(),TURHOW.en.pop()],gol1:[GOLHOW.cs.pop(),GOLHOW.en.pop()]};
+const INFHOW={
+cs:["<b>Řada.</b> Řada čísel, která se nikdy přesně neopakuje, ale pořád je v ní slyšet stejný tvar – podobně jako fraktál. Začíná 0 1 −1 2 1 0 −2 3 … Každé číslo říká, o kolik tónů nad nebo pod kořenem se hraje.", "<b>Nota.</b> Každý úder zahraje další číslo z řady. S CT RND jde o tóny stupnice, s CT CHD jen o tóny akordu. Stopa si pamatuje, kde v řadě je, i když je ztlumená.", "<b>Nastavení.</b> IX = odkud v řadě začít, SK = kolik čísel přeskakovat (jiná hodnota = příbuzná, ale jiná melodie), IT = jak velké jsou skoky.", "<b>Rozsah OR.</b> Jak daleko od kořene smí melodie odejít: 1–3 oktávy, vyšší nebo nižší tóny se otočí zpět. OR 0 = bez omezení.", "<b>Rytmus HT.</b> Euklidovský jako u EUC, nebo TM – rytmus pak vytvoří sama řada.", "<b>Ruce na stroji.</b> REC = nový začátek melodie. Změna SK, IX nebo LP začne melodii znovu. PAUSE drží právě hrající úsek."],
+en:["<b>Series.</b> A sequence of numbers that never repeats exactly, yet always keeps the same shape – a bit like a fractal. It starts 0 1 −1 2 1 0 −2 3 … Each number says how many notes above or below the root to play.", "<b>Note.</b> Each hit plays the next number. With CT RND these are scale notes, with CT CHD only chord notes. The track remembers its place in the series even while muted.", "<b>Settings.</b> IX = where in the series to start, SK = how many numbers to skip (another value = a related but different melody), IT = how big the leaps are.", "<b>Range OR.</b> How far from the root the melody may go: 1–3 octaves, notes beyond turn back. OR 0 = no limit.", "<b>Rhythm HT.</b> Euclidean as in EUC, or TM – the series itself makes the rhythm.", "<b>Hands on.</b> REC = a new start for the melody. Changing SK, IX or LP restarts the melody. PAUSE holds the part playing now."],
+orig:["INF vychází z řady nekonečna (uendelighedsrækken), kterou v roce 1959 objevil dánský skladatel Per Nørgård a použil ji v řadě svých skladeb.","INF is based on the infinity series (uendelighedsrækken), discovered in 1959 by the Danish composer Per Nørgård, who used it in many of his works."],
+cap:["Prvních 16 členů řady (IX 00, SK 01, IT 1) jako výšky v C MAJ od C3. Sloupec = úder, výška bloku = krok ve stupnici.","The first 16 terms (IX 00, SK 01, IT 1) as pitches in C MAJ from C3. Column = hit, block height = scale step."]};
+function infA(n){let v=0,bits=[];while(n>0){bits.push(n&1);n>>=1;}for(let i=bits.length-1;i>=0;i--)v=bits[i]?v+1:-v;return v;}
+function infFig(){const NM=["G2","A2","B2","C3","D3","E3","F3","G3"];let h='<figure class="golfig" style="margin:0"><table>';
+ for(let r=4;r>=-3;r--){h+=`<tr><th>${NM[r+3]}</th>`;for(let q=0;q<16;q++)h+=`<td class="${infA(q)===r?"on":""}${q%4===0&&q?" b4":""}"></td>`;h+="</tr>";}
+ h+=`</table><figcaption>${INFHOW.cap[L()]}</figcaption></figure>`;return h;}
+const ORIG={tur:[TURHOW.cs.pop(),TURHOW.en.pop()],gol1:[GOLHOW.cs.pop(),GOLHOW.en.pop()],inf1:["<b>x</b> "+INFHOW.orig[0],"<b>x</b> "+INFHOW.orig[1]]};
 for(const k in ORIG) ORIG[k]=ORIG[k].map(s=>s.replace(/^<b>[^<]*<\/b>\s*/,""));
 const GROUPS=[
  ["Typy stop","Track types",[
@@ -626,7 +620,9 @@ const GROUPS=[
   ["gol1", "GOL · Hra života", "GOL · Game of Life", "TYP", "Čtyři dráhy se navzájem ovlivňují podle pravidel Hry života. PAUSE zastaví generace, REC mřížku znovu oseje.", "Four lanes influence each other by the Game of Life rules. PAUSE stops the generations, REC reseeds the grid."],
   ["gol5", "GOL · strana 5", "GOL · page 5", "SKIP", null, null, "PL AR a délky drah LA16 LB12 LC10 LD07: jednohlasá melodie pro mono synth, která se neustále obměňuje. MU 02 občas vnese změnu.", "PL AR with lane lengths LA16 LB12 LC10 LD07: a single-voice melody for a mono synth that keeps varying. MU 02 adds an occasional change."],
   ["crd1", "CRD · akordy", "CRD · chords", "TYP", "Celé akordy podle rytmické šablony, se strumem nebo arpeggiem. Akord sleduje progresi.", "Full chords on a rhythm template, strummed or arpeggiated. The chord follows the progression."],
-  ["crd4", "CRD · strana 4", "CRD · page 4", "SKIP", null, null, "RY QTR, GT 10, AR UP, AS /16, OR 02, IV N a progrese 1564: plynulé arpeggio přes 2 oktávy, akordy na sebe navazují nejbližším obratem.", "RY QTR, GT 10, AR UP, AS /16, OR 02, IV N with progression 1564: a smooth two-octave arpeggio, chords connect through the closest inversion."]]],
+  ["crd4", "CRD · strana 4", "CRD · page 4", "SKIP", null, null, "RY QTR, GT 10, AR UP, AS /16, OR 02, IV N a progrese 1564: plynulé arpeggio přes 2 oktávy, akordy na sebe navazují nejbližším obratem.", "RY QTR, GT 10, AR UP, AS /16, OR 02, IV N with progression 1564: a smooth two-octave arpeggio, chords connect through the closest inversion."],
+  ["inf1", "INF · řada nekonečna", "INF · infinity series", "TYP", "Melodie z matematické řady: každý úder vezme další člen řady jako krok ve stupnici. Stejné nastavení dá vždy stejnou melodii.", "A melody from a mathematical series: each hit takes the next term as a scale step. The same settings always give the same melody."],
+  ["inf5", "INF · strana 5", "INF · page 5", "SKIP", null, null, "IX 00, SK 05, IT 2, CT CHD, CH SE7, OR 2 a LP 2: klidná melodie z tónů akordu, která se každé 2 takty vrací a s progresí mění harmonii.", "IX 00, SK 05, IT 2, CT CHD, CH SE7, OR 2 and LP 2: a calm melody on chord tones that returns every 2 bars and follows the progression's harmony."]]],
  ["Společné obrazovky","Shared screens",[
   ["glob1","GLOBAL · strana 1","GLOBAL · page 1","FUNC","Hodnoty se ukládají s patternem.","Values are saved with the pattern."],
   ["glob2","GLOBAL · strana 2","GLOBAL · page 2","FUNC · SKIP",null,null],
@@ -646,8 +642,8 @@ const KEYS=[
  ["t4",310,622,30,30,"TRACK 4","euc1",["Stejně jako TRACK 1, pro stopu 4.","Same as TRACK 1, for track 4."],null],
  ["reset",82,712,64,70,"RESET","euc1",["Předchozí strana obrazovky (stopa 1–4, GOL 1–5; GLOBAL a SETUP strana 1).","Previous page of the screen (track 1–4, GOL 1–5; GLOBAL and SETUP page 1)."],null],
  ["skip",150,712,64,70,"SKIP","euc2",["Další strana obrazovky. Strany bez platného pole se přeskočí.","Next page of the screen. Pages with no active field are skipped."],null],
- ["rec",218,712,64,70,"REC/LOAD","euc1",["EUC: nová náhodná melodie, slide, tie, akcenty. TUR: nový registr. USR: overdub zap / vyp. GOL: nové osévání. SONG: vložit řádek.","EUC: new random melody, slides, ties, accents. TUR: new register. USR: overdub on / off. GOL: reseed. SONG: insert a row."],["SHIFT+REC: USR smaže stopu, SONG smaže řádek.","SHIFT+REC: USR clears the track, SONG deletes the row."]],
- ["pause",286,712,64,70,"PAUSE","tur",["Zamrazí vybranou stopu: TUR registr se nemění, GOL generace stojí, pattern hraje dokola.","Freezes the selected track: the TUR register stops changing, GOL generations stop, the pattern loops."],["LED svítí = vybraná stopa je zamrazená.","LED lit = the selected track is frozen."]],
+ ["rec",218,712,64,70,"REC/LOAD","euc1",["EUC: nová náhodná melodie, slide, tie, akcenty. TUR: nový registr. USR: overdub zap / vyp. GOL: nové osévání. INF: nový náhodný začátek IX. SONG: vložit řádek.","EUC: new random melody, slides, ties, accents. TUR: new register. USR: overdub on / off. GOL: reseed. INF: new random start IX. SONG: insert a row."],["SHIFT+REC: USR smaže stopu, SONG smaže řádek.","SHIFT+REC: USR clears the track, SONG deletes the row."]],
+ ["pause",286,712,64,70,"PAUSE","tur",["Zamrazí vybranou stopu: TUR registr se nemění, GOL generace stojí, INF (s LP OF) opakuje poslední průchod. Pattern hraje dokola.","Freezes the selected track: the TUR register stops changing, GOL generations stop, INF (with LP OF) repeats its last pass. The pattern loops."],["LED svítí = vybraná stopa je zamrazená.","LED lit = the selected track is frozen."]],
  ["stop",82,820,134,74,"STOP",null,["Zastaví (FC, note off všem). Na obrazovce SONG ve stopu: zpět na řádek 01.","Stops (FC, note off to all). On the SONG screen while stopped: back to row 01."],null],
  ["play",218,820,134,74,"PLAY","logo",["Spustí: program change, pak FA a MIDI clock. Se zapnutým songem hraje od řádku 01.","Starts: program changes, then FA and MIDI clock. With song on it plays from row 01."],["LED svítí = hraje, bliká = song mode.","LED lit = playing, blinking = song mode."]],
  ["dial",424,618,156,156,"α-DIAL",null,["Hodnota ±1 (5 cvaknutí na krok). SHIFT+kolečko = velký krok u ST, HT, RT (±4), BPM (±10), SCL (±4), RNT (±12), DRP a T1P–T4P (±16).","Value ±1 (5 clicks per step). SHIFT+dial = big step for ST, HT, RT (±4), BPM (±10), SCL (±4), RNT (±12), DRP and T1P–T4P (±16)."],null],
@@ -680,8 +676,8 @@ function drawLCD(cv,lines,inv){
   const r=cv.getBoundingClientRect(); if(!r.width) return;
   const dpr=window.devicePixelRatio||1, W=Math.round(r.width*dpr), H=Math.round(r.height*dpr);
   if(cv.width!==W||cv.height!==H){cv.width=W;cv.height=H;}
-  const c=cv.getContext("2d"), px=W/DW, py=H/DH, g=Math.max(.5,px*.12);
-  c.fillStyle=css("--lcd-bg"); c.fillRect(0,0,W,H);
+  const c=cv.getContext("2d"), px=Math.min(W/DW,H/DH), py=px, g=Math.max(.5,px*.12), ox=(W-px*DW)/2, oy=(H-py*DH)/2;
+  c.fillStyle=css("--lcd-bg"); c.fillRect(0,0,W,H); c.translate(ox,oy);
   const on=css("--lcd-on"), off=css("--lcd-off");
   for(let row=0;row<2;row++) for(let col=0;col<20;col++){
     const code=lines[row].charCodeAt(col)||32; let gl=glyph(code);
@@ -692,6 +688,7 @@ function drawLCD(cv,lines,inv){
         c.fillRect((M+col*CW+x)*px+g/2,(M+row*RH+y)*py+g/2,px-g,py-g);
       }}
   }
+  c.setTransform(1,0,0,1,0,0);
 }
 function hitField(cv,e,f){
   const r=cv.getBoundingClientRect(), x=(e.clientX-r.left)/r.width*DW, y=(e.clientY-r.top)/r.height*DH;
@@ -720,6 +717,7 @@ function buildScreens(){
         (ORIG[id]?`<p class="origin"><b>${lang==="cs"?"Původ":"Origin"}</b>${ORIG[id][L()]}</p>`:"")+
         (intro?`<p class="intro">${esc(intro)}</p>`:"")+
         (id==="tur"?`<div class="golhow"><ol>${TURHOW[lang].map(x=>`<li>${x}</li>`).join("")}</ol>${turFig()}</div>`:"")+
+        (id==="inf1"?`<div class="golhow"><ol>${INFHOW[lang].map(x=>`<li>${x}</li>`).join("")}</ol>${infFig()}</div>`:"")+
         (id==="gol1"?`<div class="golhow"><ol>${GOLHOW[lang].map(x=>`<li>${x}</li>`).join("")}</ol>${golFig()}</div>`:"")+
         `<canvas class="lcd" role="img" aria-label="${esc(s.l[0].replace(/[\x00-\x07]/g,"#"))} / ${esc(s.l[1])}"></canvas>`+
         `<ol class="fields">${s.f.map((a,i)=>{const nm=a[3].split("|");return `<li data-i="${i}"><code>${esc(nm[L()]||nm[0])}</code><span>${esc(a[4][L()])}</span></li>`;}).join("")}</ol>`+(tpc?`<p class="tip"><b>TIP</b>${esc(lang==="cs"?tpc:tpe)}</p>`:"");
