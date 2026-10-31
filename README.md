@@ -1,6 +1,6 @@
 # QUALEA-500
 
-A 4-track loop MIDI sequencer with five sequencer types for the Roland MC-500 MkII.
+A 4-track loop MIDI sequencer with six sequencer types for the Roland MC-500 MkII.
 
 **Web / manual:** https://bretikov.github.io/QUALEA-500/
 
