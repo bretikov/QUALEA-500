@@ -10,13 +10,13 @@
 /* Layout: jeden sloupec max 960 px, bílé pozadí a černé linky jako kresba panelu; jediná barva = LCD */
 :root{
   --bg:#ffffff; --fg:#1d1d1f; --muted:#6b6c66; --line:#d9dad4; --soft:#f3f4f0;
-  --lcd-bg:#b4c03c; --lcd-off:#acb93a; --lcd-on:#242c0e; --lcd-frame:#1d1d1f;
+  --lcd-bg:#b4c03c; --lcd-off:#acb93a; --lcd-on:#242c0e; --lcd-frame:#1d1d1f; --fdd:#1d1d1f; --fdd-edge:#1d1d1f; --fdd-line:#ffffff;
   --sans:"Helvetica Neue",Helvetica,Arial,sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#121311; --fg:#e9eae4; --muted:#9a9b93; --line:#2f312b; --soft:#1b1c19; --lcd-frame:#3a3c35; color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#121311; --fg:#e9eae4; --muted:#9a9b93; --line:#2f312b; --soft:#1b1c19; --lcd-frame:#3a3c35; color-scheme:dark}
+  --bg:#121311; --fg:#e9eae4; --muted:#9a9b93; --line:#2f312b; --soft:#1b1c19; --lcd-frame:#3a3c35; --fdd:#121311; --fdd-edge:#e9eae4; --fdd-line:#e9eae4; color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#121311; --fg:#e9eae4; --muted:#9a9b93; --line:#2f312b; --soft:#1b1c19; --lcd-frame:#3a3c35; --fdd:#121311; --fdd-edge:#e9eae4; --fdd-line:#e9eae4; color-scheme:dark}
 
 html[data-lang="cs"] .en, html[data-lang="en"] .cs{display:none!important}
 *{box-sizing:border-box}
@@ -78,8 +78,15 @@ code,.k{font:500 .88em var(--mono);letter-spacing:.02em}
 @media (max-width:700px){.types{grid-template-columns:repeat(2,1fr)}}
 .types b{font:500 15px var(--mono);letter-spacing:.06em;display:block;margin-bottom:4px}
 .types a>span{font-size:14px;color:var(--muted)}
+.types a.extra{background:var(--soft)}
+.types a.extra:hover{background:var(--line)}
 .feat{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px 32px;padding:0;margin:0;list-style:none}
 .feat li{padding-left:16px;position:relative;font-size:15px}
+.featg{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.featg>div{background:var(--bg);padding:18px 20px}
+.featg h3{font:500 12px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 12px}
+.featg .feat{grid-template-columns:1fr;gap:8px}
+@media (max-width:700px){.featg{grid-template-columns:1fr}}
 .feat li::before{content:"";position:absolute;left:0;top:.62em;width:7px;height:1.5px;background:var(--fg)}
 
 /* rychlý start */
@@ -104,7 +111,7 @@ pre.cmd .c{color:var(--muted)}
 .panel .hit{fill:transparent;cursor:pointer;stroke:none}
 .panel .hit:hover,.panel .hit.on{fill:var(--fg);fill-opacity:.12}
 .panel .hit.on{stroke:var(--fg);stroke-width:3}
-.panel canvas.plcd{position:absolute;left:20.636%;top:44.0625%;width:28.455%;height:4.479%}
+.panel canvas.plcd{position:absolute;left:13.727%;top:43.021%;width:41.182%;height:8.75%}
 .keyinfo{border:1.5px solid var(--fg);border-radius:4px;padding:18px;min-height:180px;position:sticky;top:72px}
 .keyinfo .kname{font:500 14px var(--mono);letter-spacing:.06em;margin-bottom:10px;display:inline-block;border:1.5px solid var(--fg);border-radius:3px;padding:2px 8px}
 .keyinfo dl{margin:0;display:grid;gap:8px}
@@ -145,6 +152,8 @@ pre.cmd .c{color:var(--muted)}
 .golfig td.wm{height:4px;border:0;background:var(--fg)}
 .golfig td.wn{height:4px;border:0}
 .golfig .val{font:13px var(--mono);margin-top:10px}
+.rytfig td{height:auto;padding:8px 0;text-align:center;font:500 13px var(--mono);letter-spacing:.06em}
+.rytfig tr>th:first-child{width:52px}
 .origin{grid-column:1/-1;margin:-8px 0 4px;max-width:70ch;font-size:14px;color:var(--muted);display:flex;gap:10px;align-items:baseline}
 .origin b{font:500 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--fg);border:1.3px solid var(--fg);border-radius:2px;padding:0 5px;flex:none}
 .tip{grid-column:1/-1;margin:4px 0 0;max-width:none;font-size:15px;display:flex;gap:12px;align-items:baseline;border:1.5px solid var(--fg);border-radius:4px;padding:12px 14px}
@@ -154,7 +163,7 @@ pre.cmd .c{color:var(--muted)}
 footer{border-top:1px solid var(--line);padding-block:32px 48px;font-size:13px;color:var(--muted)}
 footer p{max-width:none}
 @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
-html{scroll-behavior:smooth;scroll-padding-top:64px}
+html{scroll-behavior:smooth;scroll-padding-top:64px;overflow-anchor:none}
 </style>
 
 <header class="top"><div class="wrap">
@@ -176,38 +185,31 @@ html{scroll-behavior:smooth;scroll-padding-top:64px}
 <main id="top">
 <div class="wrap hero">
   <h1>QUALEA-500</h1>
-  <p class="sub"><span class="cs">4stopý loop MIDI sekvencer se šesti typy sekvencerů pro Roland MC-500 MkII.</span><span class="en">A 4-track loop MIDI sequencer with six sequencer types for the Roland MC-500 MkII.</span></p>
-  <div class="meta">v3.2 · 3.5" 2DD · MIDI OUT 1 + 2 · MIDI IN</div>
-  <canvas class="lcd bootlcd" data-s="logo" data-static="1" aria-label="LCD: QUALEA v3.2"></canvas>
+  <p class="sub"><span class="cs">4stopý loop MIDI sekvencer s pěti typy sekvencerů a bicí jednotkou pro Roland MC-500 a MC-50.</span><span class="en">A 4-track loop MIDI sequencer with five sequencer types and a drum unit for the Roland MC-500 and MC-50.</span></p>
+  <div class="meta">v3.5d · 3.5" 2DD · MIDI OUT 1 + 2 · MIDI IN</div>
+  <canvas class="lcd bootlcd" data-s="logo" data-static="1" aria-label="LCD: QUALEA v3.5d"></canvas>
 </div>
 
 <section id="about"><div class="wrap">
   <h2><span class="cs">O projektu</span><span class="en">About</span></h2>
-  <p class="lead"><span class="cs">MC-500 MkII z roku 1988 má výborný hardware: dvě MIDI výstupy, disketu, kolečko a pevné klávesy. QUALEA-500 z něj dělá generativní sekvencer pro melodie. Čtyři stopy běží ve smyčkách, každá může mít jiný typ, délku i rychlost. Výšky se vždy drží zvolené stupnice a progrese akordů.</span><span class="en">The 1988 MC-500 MkII has great hardware: two MIDI outputs, a floppy drive, a data dial and solid keys. QUALEA-500 turns it into a generative sequencer for melodies. Four tracks run as loops, each with its own type, length and speed. Pitches always stay within the chosen scale and chord progression.</span></p>
+  <p class="lead"><span class="cs"><b>Sekvencer z roku 1988, nový mozek.</b> QUALEA-500 se nahraje z diskety místo původního softwaru a z MC-500 udělá generativní sekvencer: čtyři stopy ve smyčkách vymýšlejí melodie, akordy a arpeggia, pátá jednotka k nim hraje bicí. Všechno se drží zvolené stupnice a progrese akordů a ty to řídíš kolečkem a klávesami.</span><span class="en"><b>A 1988 sequencer with a new brain.</b> QUALEA-500 loads from floppy in place of the original software and turns the MC-500 into a generative sequencer: four looping tracks invent melodies, chords and arpeggios, while a fifth unit plays drums. Everything stays in the chosen scale and chord progression, and you steer it with the dial and keys.</span></p>
 
-  <p class="typesintro"><span class="cs">Každá ze čtyř stop může použít jeden z <b>šesti typů sekvenceru</b>:</span><span class="en">Each of the four tracks can use one of <b>six sequencer types</b>:</span></p>
+  <p class="typesintro"><span class="cs">Každá ze čtyř stop může použít jeden z <b>pěti typů sekvenceru</b>:</span><span class="en">Each of the four tracks can use one of <b>five sequencer types</b>:</span></p>
   <div class="types">
     <a href="#s-euc1"><b>EUC <span aria-hidden="true">→</span></b><span class="cs">Euklidovské rytmy s náhodnou melodií</span><span class="en">Euclidean rhythms with a random melody</span></a>
     <a href="#s-tur"><b>TUR <span aria-hidden="true">→</span></b><span class="cs">Turing machine – posuvný registr s mutací</span><span class="en">Turing machine – shift register with mutation</span></a>
     <a href="#s-usr"><b>USR <span aria-hidden="true">→</span></b><span class="cs">Vlastní nahrávka z MIDI IN, overdub</span><span class="en">Your own recording from MIDI IN, overdub</span></a>
-    <a href="#s-gol1"><b>GOL <span aria-hidden="true">→</span></b><span class="cs">Hra života – 4 hlasy na mřížce 4×16</span><span class="en">Game of Life – 4 voices on a 4×16 grid</span></a>
     <a href="#s-crd1"><b>CRD <span aria-hidden="true">→</span></b><span class="cs">Akordy, rytmické šablony, arpeggio, strum</span><span class="en">Chords, rhythm templates, arpeggio, strum</span></a>
     <a href="#s-inf1"><b>INF <span aria-hidden="true">→</span></b><span class="cs">Řada nekonečna Pera Nørgårda – soběpodobné melodie</span><span class="en">Per Nørgård's infinity series – self-similar melodies</span></a>
+    <a href="#s-ryt1" class="extra"><b>+ RYT <span aria-hidden="true">→</span></b><span class="cs">Bicí jednotka navíc, na klávese TRACK T/R</span><span class="en">An extra drum unit on the TRACK T/R key</span></a>
   </div>
 
-  <ul class="feat">
-    <li><span class="cs">4 stopy, každá 1–16 kroků (USR až 64) → polyrytmy</span><span class="en">4 tracks of 1–16 steps each (USR up to 64) → polyrhythms</span></li>
-    <li><span class="cs">17 stupnic, kořen C1–C6, kvantizace výšek</span><span class="en">17 scales, root C1–C6, pitch quantising</span></li>
-    <li><span class="cs">Progrese 1–4 akordů (DIA / TRA), hlasy se drží blízko sebe</span><span class="en">Progressions of 1–4 chords (DIA / TRA) with close voice leading</span></li>
-    <li><span class="cs">Pravděpodobnost, hustota, slide, tie, akcent, human</span><span class="en">Probability, density, slide, tie, accent, humanise</span></li>
-    <li><span class="cs">Clock divider /2 /4 /8 a shuffle −50…+50 %</span><span class="en">Clock divider /2 /4 /8 and shuffle −50…+50 %</span></li>
-    <li><span class="cs">64 patternů v paměti, 3 balíky na disketě, přepínání za chodu</span><span class="en">64 patterns in memory, 3 banks on floppy, switching while playing</span></li>
-    <li><span class="cs">Song mode: 99 řádků, opakování, mute, LOOP</span><span class="en">Song mode: 99 rows, repeats, mute, LOOP</span></li>
-    <li><span class="cs">Program change stop a bicích (např. TR-6S) na začátku taktu</span><span class="en">Program change for tracks and drums (e.g. TR-6S) on the bar line</span></li>
-    <li><span class="cs">Kanál a výstup každé stopy, MIDI clock na OUT1 / OUT2 / oba / vypnuto</span><span class="en">Channel and output per track, MIDI clock on OUT1 / OUT2 / both / off</span></li>
-    <li><span class="cs">Softwarové MIDI THRU na kanál a výstup zvolených stop</span><span class="en">Software MIDI THRU to the channel and output of chosen tracks</span></li>
-    <li><span class="cs">Po zapnutí se obnoví rozpracovaný pattern</span><span class="en">Restores your work-in-progress pattern at power-on</span></li>
-  </ul>
+  <div class="featg">
+    <div><h3><span class="cs">Melodie</span><span class="en">Melody</span></h3><ul class="feat"><li><span class="cs">Stopy 1–16 kroků (USR až 64), polyrytmy</span><span class="en">Tracks of 1–16 steps (USR up to 64), polyrhythms</span></li><li><span class="cs">17 stupnic, kořen C1–C6</span><span class="en">17 scales, root C1–C6</span></li><li><span class="cs">Progrese 1–4 akordů</span><span class="en">Progressions of 1–4 chords</span></li><li><span class="cs">Pravděpodobnost, hustota, slide, tie, akcent, human</span><span class="en">Probability, density, slide, tie, accent, humanise</span></li><li><span class="cs">Clock divider a shuffle</span><span class="en">Clock divider and shuffle</span></li></ul></div>
+    <div><h3><span class="cs">Bicí a MIDI</span><span class="en">Drums & MIDI</span></h3><ul class="feat"><li><span class="cs">RYT: 9 stylů, 5 drah, chaos, otevřený hi-hat</span><span class="en">RYT: 9 styles, 5 lanes, chaos, open hi-hat</span></li><li><span class="cs">Kanál a výstup každé stopy</span><span class="en">Channel and output per track</span></li><li><span class="cs">MIDI clock OUT1 / OUT2 / oba / vypnuto</span><span class="en">MIDI clock OUT1 / OUT2 / both / off</span></li><li><span class="cs">MIDI THRU</span><span class="en">MIDI THRU</span></li><li><span class="cs">Program change stop a bicích (např. TR-6S)</span><span class="en">Program change for tracks and drums (e.g. TR-6S)</span></li></ul></div>
+    <div><h3><span class="cs">Patterny a disketa</span><span class="en">Patterns & floppy</span></h3><ul class="feat"><li><span class="cs">64 patternů, přepínání za chodu</span><span class="en">64 patterns, switching while playing</span></li><li><span class="cs">Song mode: 99 řádků</span><span class="en">Song mode: 99 rows</span></li><li><span class="cs">3 balíky na disketě, více disket, FORM</span><span class="en">3 banks per floppy, several floppies, FORM</span></li><li><span class="cs">Po zapnutí se obnoví rozpracovaný pattern</span><span class="en">Restores your work-in-progress pattern at power-on</span></li></ul></div>
+    <div><h3><span class="cs">Stroje</span><span class="en">Machines</span></h3><ul class="feat"><li><span class="cs">Jeden disk pro MC-500 MkII, MC-500B a MC-50 mkI / mkII</span><span class="en">One disk for the MC-500 MkII, MC-500B and MC-50 mkI / mkII</span></li><li><span class="cs">Disketa 3.5" 2DD</span><span class="en">3.5" 2DD floppy</span></li><li><span class="cs">Žádný kód Rolandu</span><span class="en">No Roland code</span></li></ul></div>
+  </div>
 </div></section>
 
 <section id="start"><div class="wrap">
@@ -229,11 +231,11 @@ diskutil eject /dev/disk4
 sudo dd if=QUALEA-500.dsk of=/dev/sdX bs=9216</pre>
       <p><span class="cs">Pozor: zápis po sektorech (<code>bs=512</code>, často s <code>conv=noerror,sync</code>) USB mechanikou dává disketu, kterou MC-500 přečte s chybou, a ani obraz Rolandu se pak nenahraje.</span><span class="en">Note: writing sector by sector (<code>bs=512</code>, often with <code>conv=noerror,sync</code>) on a USB drive produces a floppy the MC-500 reads with errors; even Roland's own image then fails to load.</span></p></li>
     <li><h4><span class="cs">Zapoj MIDI</span><span class="en">Connect MIDI</span></h4>
-      <p><span class="cs">Výchozí nastavení: stopy 1–4 hrají na kanálech 1–4 přes MIDI OUT 1, clock jde na oba výstupy. Klávesa <span class="k">UTIL/MIDI</span> otevře SETUP, kde se to dá změnit.</span><span class="en">Defaults: tracks 1–4 play on channels 1–4 via MIDI OUT 1, clock goes to both outputs. Press <span class="k">UTIL/MIDI</span> to open SETUP and change this.</span></p></li>
+      <p><span class="cs">Výchozí nastavení: stopy 1–4 hrají na kanálech 1–4 přes MIDI OUT 1, clock jde na oba výstupy, bicí RYT na kanál 10 přes oba výstupy. Klávesa <span class="k">UTIL/MIDI</span> otevře SETUP, kde se to dá změnit.</span><span class="en">Defaults: tracks 1–4 play on channels 1–4 via MIDI OUT 1, clock goes to both outputs, RYT drums on channel 10 via both outputs. Press <span class="k">UTIL/MIDI</span> to open SETUP and change this.</span></p></li>
     <li><h4><span class="cs">Zapni MC-500</span><span class="en">Power on</span></h4>
       <p><span class="cs">Po zavedení se objeví logo QUALEA, načte se poslední uložený stav a pak obrazovka stopy 1.</span><span class="en">After booting you see the QUALEA logo while the last saved state loads, then the track 1 screen.</span></p></li>
     <li><h4><span class="cs">Hraj</span><span class="en">Play</span></h4>
-      <p><span class="cs"><span class="k">PLAY</span> spustí smyčku. <span class="k">REC</span> vygeneruje nové melodie. Na <span class="k">FUNC</span> nastav stupnici <code>SCL</code> (např. MIN), kolečkem měň hodnoty.</span><span class="en"><span class="k">PLAY</span> starts the loop. <span class="k">REC</span> generates a new melody. On <span class="k">FUNC</span> pick a scale <code>SCL</code> (e.g. MIN) and turn the dial to change values.</span></p></li>
+      <p><span class="cs"><span class="k">PLAY</span> spustí smyčku. <span class="k">REC</span> vygeneruje nové melodie. Na <span class="k">FUNC</span> nastav stupnici <code>SCL</code> (např. MIN), kolečkem měň hodnoty. Bicí jsou po zapnutí ztlumené: podrž <span class="k">TRACK T/R</span>.</span><span class="en"><span class="k">PLAY</span> starts the loop. <span class="k">REC</span> generates a new melody. On <span class="k">FUNC</span> pick a scale <code>SCL</code> (e.g. MIN) and turn the dial to change values. Drums start muted: hold <span class="k">TRACK T/R</span>.</span></p></li>
     <li><h4><span class="cs">Ulož</span><span class="en">Save</span></h4>
       <p><span class="cs"><span class="k">MODE/LOC</span> → akce <code>SAVE</code> uloží pattern do paměti, <code>DSAV</code> uloží celý balík na disketu. Co neuložíš přes DSAV, vypnutím zmizí.</span><span class="en"><span class="k">MODE/LOC</span> → action <code>SAVE</code> stores the pattern in memory, <code>DSAV</code> writes the whole bank to floppy. Anything not saved with DSAV is lost at power-off.</span></p></li>
   </ol>
@@ -251,53 +253,13 @@ sudo dd if=QUALEA-500.dsk of=/dev/sdX bs=9216</pre>
 <line x1="10" y1="70" x2="686" y2="70" stroke="currentColor" stroke-width="2"/>
 <text x="62" y="150" font-size="46" text-anchor="start" font-weight="700" letter-spacing="2">QUALEA-500</text>
 <text x="64" y="182" font-size="17" text-anchor="start" font-weight="400" letter-spacing="1">4-track loop MIDI sequencer</text>
-<rect x="137" y="383" width="481" height="144" style="fill:var(--lcd-frame)"/>
-<rect x="227" y="423" width="313" height="43" style="fill:var(--bg)"/>
-<rect x="232.0" y="427.0" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="247.2" y="427.0" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="262.4" y="427.0" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="277.6" y="427.0" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="292.8" y="427.0" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="308.0" y="427.0" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="323.2" y="427.0" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="338.4" y="427.0" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="353.6" y="427.0" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="368.79999999999995" y="427.0" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="384.0" y="427.0" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="399.2" y="427.0" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="414.4" y="427.0" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="429.6" y="427.0" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="444.79999999999995" y="427.0" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="460.0" y="427.0" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="475.2" y="427.0" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="490.4" y="427.0" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="505.59999999999997" y="427.0" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="520.8" y="427.0" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="232.0" y="445.5" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="247.2" y="445.5" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="262.4" y="445.5" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="277.6" y="445.5" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="292.8" y="445.5" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="308.0" y="445.5" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="323.2" y="445.5" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="338.4" y="445.5" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="353.6" y="445.5" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="368.79999999999995" y="445.5" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="384.0" y="445.5" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="399.2" y="445.5" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="414.4" y="445.5" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="429.6" y="445.5" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="444.79999999999995" y="445.5" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="460.0" y="445.5" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="475.2" y="445.5" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="490.4" y="445.5" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="505.59999999999997" y="445.5" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
-<rect x="520.8" y="445.5" width="12.6" height="16.5" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
+<rect x="137" y="399" width="481" height="112" style="fill:var(--lcd-frame)"/>
+<rect x="151" y="413" width="453" height="84" style="fill:var(--lcd-bg)"/>
 <path d="M686 22 V510 M686 510 L676 540 V560 M1074 22 V510 L1080 540 V560" fill="none" stroke="currentColor" stroke-width="2"/>
 <line x1="686" y1="510" x2="1074" y2="510" stroke="currentColor" stroke-width="2"/>
-<rect x="700" y="517" width="360" height="38" rx="2" fill="currentColor"/>
-<rect x="726" y="531" width="250" height="10" rx="2" fill="none" style="stroke:var(--bg)" stroke-width="1.5"/>
-<rect x="1000" y="528" width="40" height="16" rx="3" fill="none" style="stroke:var(--bg)" stroke-width="1.5"/>
+<rect x="700" y="517" width="360" height="38" rx="2" style="fill:var(--fdd);stroke:var(--fdd-edge)" stroke-width="1.5"/>
+<rect x="726" y="531" width="250" height="10" rx="2" fill="none" style="stroke:var(--fdd-line)" stroke-width="1.5"/>
+<rect x="1000" y="528" width="40" height="16" rx="3" fill="none" style="stroke:var(--fdd-line)" stroke-width="1.5"/>
 <line x1="380" y1="595" x2="380" y2="948" stroke="currentColor" stroke-width="2.5"/>
 <line x1="10" y1="595" x2="1090" y2="595" stroke="currentColor" stroke-width="2"/>
 <rect x="30" y="601" width="340" height="78" rx="3" fill="none" stroke="currentColor" stroke-width="1.5"/>
@@ -437,7 +399,7 @@ sudo dd if=QUALEA-500.dsk of=/dev/sdX bs=9216</pre>
     <p><b class="cs">Blikající pole</b><b class="en">Blinking field</b><br><span class="cs">Editovaná hodnota bliká inverzně. Šipky ← → přejdou na další pole, na obrazovce stopy plynule přes všechny strany.</span><span class="en">The value being edited blinks in inverse. Arrows ← → move to the next field; on track screens they wrap through all pages.</span></p>
     <p><b class="cs">Čísla bez ENTER</b><b class="en">Numbers without ENTER</b><br><span class="cs">Číslo se zapíše samo 1,5 s po poslední číslici, nebo hned, když další číslice nedává smysl. AVAIL/CANCEL ho zahodí.</span><span class="en">A number is entered 1.5 s after the last digit, or at once when no further digit makes sense. AVAIL/CANCEL discards it.</span></p>
     <p><b class="cs">Pomlčky <code>--</code></b><b class="en">Dashes <code>--</code></b><br><span class="cs">Pole, které v aktuálním nastavení nemá vliv, ukazuje pomlčky a šipky ho přeskočí. Jeho hodnota se pamatuje.</span><span class="en">A field that has no effect in the current setting shows dashes and the arrows skip it. Its value is kept.</span></p>
-    <p><b class="cs">LED</b><b class="en">LEDs</b><br><span class="cs">TRACK svítí = hraje, bliká = vybraná, nesvítí = ztlumená. PLAY bliká = song mode. BEAT červeně na 1. době.</span><span class="en">TRACK lit = playing, blinking = selected, off = muted. PLAY blinking = song mode. BEAT red on beat 1.</span></p>
+    <p><b class="cs">LED</b><b class="en">LEDs</b><br><span class="cs">TRACK svítí = hraje, bliká = vybraná, nesvítí = ztlumená. T/R totéž pro bicí RYT. PLAY bliká = song mode. BEAT červeně na 1. době.</span><span class="en">TRACK lit = playing, blinking = selected, off = muted. T/R the same for the RYT drums. PLAY blinking = song mode. BEAT red on beat 1.</span></p>
   </div>
 </div></section>
 
@@ -451,9 +413,9 @@ sudo dd if=QUALEA-500.dsk of=/dev/sdX bs=9216</pre>
   <h2><span class="cs">Plány</span><span class="en">Roadmap</span></h2>
   <p><span class="cs">Co se chystá do dalších verzí. Pořadí i podoba se ještě můžou změnit.</span><span class="en">What is planned for future versions. Order and details may still change.</span></p>
   <div class="road">
-    <div><i><span class="cs">nový typ</span><span class="en">new type</span></i><b>MKV</b><span class="cs">Markovův řetězec – naučí se přechody mezi stupni z nahrané stopy USR a generuje nové varianty „ve stejném stylu“.</span><span class="en">Markov chain – learns the transitions between scale degrees from a recorded USR track and generates new variations “in the same style”.</span></div>
-    <div><i><span class="cs">funkce</span><span class="en">feature</span></i><b>LFO</b><span class="cs">LFO na MIDI CC pro každou stopu – např. pomalé otevírání filtru synthu, synchronně s taktem.</span><span class="en">An LFO on MIDI CC for each track – e.g. slowly opening a synth's filter, in sync with the bar.</span></div>
+    <div><i><span class="cs">v3.6</span><span class="en">v3.6</span></i><b>ARP · KEY · HOLD</b><span class="cs">Změna směru arpeggia za chodu, akord zahraný z klávesnice přes MIDI IN (CH KEY) a HOLD na PAUSE.</span><span class="en">Change the arpeggio direction while playing, a chord played from a keyboard via MIDI IN (CH KEY) and HOLD on PAUSE.</span></div>
     <div><i><span class="cs">funkce</span><span class="en">feature</span></i><b>SYNC IN</b><span class="cs">Synchronizace z MIDI IN – MC-500 jako slave, např. za TR-6S nebo S-1.</span><span class="en">Sync from MIDI IN – the MC-500 as a slave, e.g. to a TR-6S or S-1.</span></div>
+    <div><i><span class="cs">možná</span><span class="en">maybe</span></i><b><span class="cs">8 STOP</span><span class="en">8 TRACKS</span></b><span class="cs">Osm melodických stop místo čtyř. Zatím jen úvaha.</span><span class="en">Eight melodic tracks instead of four. Just an idea for now.</span></div>
   </div>
 </div></section>
 
@@ -461,7 +423,12 @@ sudo dd if=QUALEA-500.dsk of=/dev/sdX bs=9216</pre>
   <h2><span class="cs">Ke stažení</span><span class="en">Download</span></h2>
   <div class="dl"><span class="dlsoon"><span class="cs">Již brzy</span><span class="en">Coming soon</span></span></div>
   <p><span class="cs">QUALEA-500 je zdarma pro osobní použití.</span><span class="en">QUALEA-500 is free for personal use.</span></p>
-  <p class="muted"><span class="cs">Požadavky: Roland MC-500 MkII (otestováno i na MC-500B = MkI s deskou OM-500), disketa 3.5" 2DD, disketová mechanika pro zápis obrazu.</span><span class="en">Requirements: Roland MC-500 MkII (also tested on the MC-500B = MkI with the OM-500 board), a 3.5" 2DD floppy, a floppy drive to write the image.</span></p>
+  <p class="muted"><span class="cs">Požadavky: Roland MC-500 MkII, MC-500B (MkI s deskou OM-500) nebo MC-50 mkI / mkII (verze 3.5 zatím vyzkoušena jen na MC-500 MkII), disketa 3.5" 2DD, disketová mechanika pro zápis obrazu.</span><span class="en">Requirements: Roland MC-500 MkII, MC-500B (MkI with the OM-500 board) or MC-50 mkI / mkII (version 3.5 so far tested on the MC-500 MkII only), a 3.5" 2DD floppy, a floppy drive to write the image.</span></p>
+</div></section>
+
+<section id="thanks"><div class="wrap">
+  <h2><span class="cs">Poděkování</span><span class="en">Thanks</span></h2>
+  <p><span class="cs">Díky beta testerům <b>Sunshine</b>, <b>Tim</b> a <b>John</b> za testování QUALEA-500 na jejich strojích ❤️</span><span class="en">Thanks to the beta testers <b>Sunshine</b>, <b>Tim</b> and <b>John</b> for testing QUALEA-500 on their machines ❤️</span></p>
 </div></section>
 </main>
 
@@ -472,15 +439,12 @@ sudo dd if=QUALEA-500.dsk of=/dev/sdX bs=9216</pre>
 
 <script>
 const FONT=[[0,0,0,0,0,0,0,0],[4,4,4,4,0,0,4,0],[10,10,10,0,0,0,0,0],[10,10,31,10,31,10,10,0],[4,15,20,14,5,30,4,0],[24,25,2,4,8,19,3,0],[12,18,20,8,21,18,13,0],[12,4,8,0,0,0,0,0],[2,4,8,8,8,4,2,0],[8,4,2,2,2,4,8,0],[0,4,21,14,21,4,0,0],[0,4,4,31,4,4,0,0],[0,0,0,0,12,4,8,0],[0,0,0,31,0,0,0,0],[0,0,0,0,0,12,12,0],[0,1,2,4,8,16,0,0],[14,17,19,21,25,17,14,0],[4,12,4,4,4,4,14,0],[14,17,1,2,4,8,31,0],[31,2,4,2,1,17,14,0],[2,6,10,18,31,2,2,0],[31,16,30,1,1,17,14,0],[6,8,16,30,17,17,14,0],[31,17,1,2,4,4,4,0],[14,17,17,14,17,17,14,0],[14,17,17,15,1,2,12,0],[0,12,12,0,12,12,0,0],[0,12,12,0,12,4,8,0],[2,4,8,16,8,4,2,0],[0,0,31,0,31,0,0,0],[8,4,2,1,2,4,8,0],[14,17,1,2,4,0,4,0],[14,17,1,13,21,21,14,0],[14,17,17,17,31,17,17,0],[30,17,17,30,17,17,30,0],[14,17,16,16,16,17,14,0],[28,18,17,17,17,18,28,0],[31,16,16,30,16,16,31,0],[31,16,16,30,16,16,16,0],[14,17,16,23,17,17,15,0],[17,17,17,31,17,17,17,0],[14,4,4,4,4,4,14,0],[7,2,2,2,2,18,12,0],[17,18,20,24,20,18,17,0],[16,16,16,16,16,16,31,0],[17,27,21,21,17,17,17,0],[17,17,25,21,19,17,17,0],[14,17,17,17,17,17,14,0],[30,17,17,30,16,16,16,0],[14,17,17,17,21,18,13,0],[30,17,17,30,20,18,17,0],[15,16,16,14,1,1,30,0],[31,4,4,4,4,4,4,0],[17,17,17,17,17,17,14,0],[17,17,17,17,17,10,4,0],[17,17,17,21,21,21,10,0],[17,17,10,4,10,17,17,0],[17,17,17,10,4,4,4,0],[31,1,2,4,8,16,31,0],[28,16,16,16,16,16,28,0],[17,10,31,4,31,4,4,0],[14,2,2,2,2,2,14,0],[4,10,17,0,0,0,0,0],[0,0,0,0,0,0,31,0],[8,4,2,0,0,0,0,0],[0,0,14,1,15,17,15,0],[16,16,22,25,17,17,30,0],[0,0,14,16,16,17,14,0],[1,1,13,19,17,17,15,0],[0,0,14,17,31,16,14,0],[6,9,8,28,8,8,8,0],[0,15,17,17,15,1,14,0],[16,16,22,25,17,17,17,0],[4,0,12,4,4,4,14,0],[2,0,6,2,2,18,12,0],[16,16,18,20,24,20,18,0],[12,4,4,4,4,4,14,0],[0,0,26,21,21,17,17,0],[0,0,22,25,17,17,17,0],[0,0,14,17,17,17,14,0],[0,0,30,17,30,16,16,0],[0,0,13,19,15,1,1,0],[0,0,22,25,16,16,16,0],[0,0,14,16,14,1,30,0],[8,8,28,8,8,9,6,0],[0,0,17,17,17,19,13,0],[0,0,17,17,17,10,4,0],[0,0,17,21,21,21,10,0],[0,0,17,10,4,10,17,0],[0,0,17,17,15,1,14,0],[0,0,31,2,4,8,31,0],[2,4,4,8,4,4,2,0],[4,4,4,4,4,4,4,0],[8,4,4,2,4,4,8,0],[0,4,2,31,2,4,0,0],[0,4,8,31,8,4,0,0]];
-/* GOL mřížka: 4 dráhy × 16 kroků, 1 znak = 4 kroky (body 4-1), dráha L = řádek 2L */
-const GRID=["0110110000011010","1011000110100110","0001011011001001","1100100101100011"];
 const CG={};
-for(let ch=0;ch<4;ch++){const g=[0,0,0,0,0,0,0,0];for(let l=0;l<4;l++){let v=0;for(let q=0;q<4;q++)if(GRID[l][ch*4+q]==="1")v|=16>>q;g[2*l]=v;}CG[4+ch]=g;}
 
 const S={
-logo:{l:["  QUALEA   v3.2     ","      (C)2026       "],f:[]},
+logo:{l:["  QUALEA   v3.5d    ","      (C)2026       "],f:[]},
 euc1:{l:["EUC o---#--o--o--o--","ST16 HT05  RT00 DIFW"],f:[
- [1,1,3,"TYP",["Typ stopy EUC, TUR, USR, GOL, CRD, INF (jen kolečkem).","Track type EUC, TUR, USR, GOL, CRD, INF (dial only)."]],
+ [1,1,3,"TYP",["Typ stopy EUC, TUR, USR, CRD, INF (jen kolečkem).","Track type EUC, TUR, USR, CRD, INF (dial only)."]],
  [1,5,16,"ř. 1|line 1",["Pattern: o úder, - pauza, . úder ztlumený hustotou DE, # právě hraje, x za délkou stopy.","Pattern: o hit, - rest, . hit thinned out by density DE, # now playing, x beyond track length."]],
  [2,3,2,"ST",["Délka stopy 1–16 kroků (16tin). Každá stopa má vlastní délku → polyrytmy.","Track length 1–16 steps (16ths). Each track has its own length → polyrhythms."]],
  [2,8,2,"HT",["Počet úderů 0–ST, rozložených euklidovsky co nejrovnoměrněji.","Number of hits 0–ST, spread as evenly as possible (Euclidean)."]],
@@ -512,15 +476,6 @@ usr:{l:["USR o--oo=-o---o--o-","LN32 BA1/2 QZOF PLON"],f:[
  [2,8,3,"BA",["Hrající takt / počet taktů (jen zobrazení).","Bar playing / number of bars (display only)."]],
  [2,14,2,"QZ",["ON přitáhne noty k nejbližšímu tónu stupnice SCL. OF hraje, jak bylo nahráno.","ON snaps notes to the nearest tone of scale SCL. OF plays them as recorded."]],
  [2,19,2,"PL",["OF = mono (tie, slide). ON = až 4 noty na krok, overdub vrství.","OF = mono (tie, slide). ON = up to 4 notes per step, overdub layers them."]]]},
-gol1:{l:["GOL    [\x04\x05\x06\x07]   G012","PLON BROF  MU03 RSRN"],f:[
- [1,9,4,"GRID",["Mřížka 4 dráhy × 16 kroků (1 znak = 1 doba). Conwayova Hra života B3/S23: 1 takt = 1 generace. Každá dráha je jeden hlas akordu CH.","Grid of 4 lanes × 16 steps (1 character = 1 beat). Conway's Game of Life B3/S23: 1 bar = 1 generation. Each lane is one voice of chord CH."]],
- [1,18,3,"G",["Číslo generace 000–999 (jen zobrazení).","Generation number 000–999 (display only)."]],
- [2,3,2,"PL",["ON = každá dráha svou notou. HI / LO / AR = vždy jen jedna nota (nejvyšší, nejnižší, dokola) pro mono synth.","ON = each lane plays its own note. HI / LO / AR = always one note (highest, lowest, cycling) for a mono synth."]],
- [2,8,2,"BR",["ON = hraje jen nově narozená buňka.","ON = only newborn cells play."]],
- [2,14,2,"MU",["Mutace 0–10: v každé generaci (taktu) je šance MU/10, že se jedna náhodná buňka převrátí: živá zanikne, nebo prázdná ožije. 00 = čistá Hra života, vývoj závisí jen na pravidlech. 01–03 = změna zhruba jednou za 10, 5 nebo 3 takty; ustálený vzor občas šťouchne a ten se znovu rozběhne. 05 = zhruba každý druhý takt. 10 = jedna změna v každém taktu, mřížka se nikdy neustálí. Vždy jde jen o jednu buňku, takže ani 10 není chaos. Mutace pomáhá i proti vymření.","Mutation 0–10: in each generation (bar) there is an MU/10 chance that one random cell flips: a live cell dies or an empty one comes alive. 00 = pure Game of Life, evolution follows the rules only. 01–03 = a change roughly every 10, 5 or 3 bars; a settled pattern gets an occasional nudge and starts moving again. 05 = about every other bar. 10 = one change every bar, the grid never settles. It is always a single cell, so even 10 is not chaos. Mutation also helps against die-out."]],
- [2,19,2,"RS",["Po vymření nebo zamrznutí: RN nové osévání, SA znovu poslední osévání, OF ticho do REC.","After die-out or freeze: RN new random seed, SA repeat the last seed, OF silence until REC."]]]},
-gol5:{l:["GOL    [\x04\x05\x06\x07]   G012","LA16 LB13  LC16 LD07"],f:[
- [2,3,2,"LA–LD",["Délka každé dráhy 1–16. Mřížka se vyvíjí celá, dráhy se opakují po své délce → polyrytmus.","Length of each lane 1–16. The whole grid evolves; lanes loop at their own length → polyrhythm."]]]},
 crd1:{l:["CRD o=--o=--o=--o=--","RYQTR GT05  AROF SR2"],f:[
  [2,3,3,"RY",["Rytmická šablona: BAR, HLF, QTR, OFF, CHA, TRS, SYN, FNK, PSH (anticipace dalšího akordu).","Rhythm template: BAR, HLF, QTR, OFF, CHA, TRS, SYN, FNK, PSH (anticipates the next chord)."]],
  [2,9,2,"GT",["Délka akordu 01–10 z doby do dalšího úderu (10 = drží až do něj).","Chord length 01–10 of the time to the next hit (10 = held until then)."]],
@@ -543,7 +498,7 @@ inf5:{l:["INF o--o--#-o--o--o-","IX00 LP3/4  IT1     "],f:[
  [2,15,1,"IT",["Interval 1–4: násobí čísla řady – stejný tvar melodie, větší skoky.","Interval 1–4: multiplies the series values – same melodic shape, bigger leaps."]]]},
 glob1:{l:["BPM  SFL  RNT  SCL  ","120  +25  A2   MIN  "],f:[
  [2,1,3,"BPM",["Tempo 20–200.","Tempo 20–200."]],
- [2,6,3,"SFL",["Shuffle −50 až +50 % (posouvá 2. a 4. 16tinu doby, +33 = triola). MIDI clock zůstává rovný.","Shuffle −50 to +50 % (moves the 2nd and 4th sixteenth of each beat, +33 = triplet). MIDI clock stays straight."]],
+ [2,6,3,"SFL",["Shuffle −50 až +50 % (posouvá 2. a 4. 16tinu doby, +33 = triola). MIDI clock zůstává rovný. Platí i pro bicí RYT.","Shuffle −50 to +50 % (moves the 2nd and 4th sixteenth of each beat, +33 = triplet). MIDI clock stays straight. Also applies to the RYT drums."]],
  [2,11,3,"RNT",["Kořen stupnice C1–C6.","Scale root C1–C6."]],
  [2,16,3,"SCL",["Stupnice: CHR, MIN, MAJ, PMI, PMA, DOR, HMI, PHR, LOC, MIX, LYD, MMI, BLU, WHL, DIM, PHD, INS.","Scale: CHR, MIN, MAJ, PMI, PMA, DOR, HMI, PHR, LOC, MIX, LYD, MMI, BLU, WHL, DIM, PHD, INS."]]]},
 glob2:{l:["T1P T2P T3P T4P DRP ","001 OFF OFF OFF 005 "],f:[
@@ -554,38 +509,62 @@ set1:{l:["T1/O T2/O T3/O T4/O ","01/1 02/1 03/B 10/2 "],f:[
  [2,4,1,"/O",["Výstup stopy: 1 = OUT1, 2 = OUT2, B = oba.","Track output: 1 = OUT1, 2 = OUT2, B = both."]]]},
 set2:{l:["DR/O SYNC IN THRU   ","16/B BOTH AL 1-3-   "],f:[
  [2,1,4,"DR/O",["Kanál a výstup pro program change bicích (DRP).","Channel and output for the drum program change (DRP)."]],
- [2,6,4,"SYNC",["Kam jde MIDI clock a start/stop: OUT1, OUT2, BOTH, nebo OFF = nikam (např. když přístroj dostává clock odjinud).","Where MIDI clock and start/stop go: OUT1, OUT2, BOTH, or OFF = nowhere (e.g. when a device gets its clock elsewhere)."]],
+ [2,6,4,"SYNC",["Kam jde MIDI clock a start/stop: OFF = nikam (např. když přístroj dostává clock odjinud), OUT1, OUT2, BOTH = oba.","Where MIDI clock and start/stop go: OFF = nowhere (e.g. when a device gets its clock elsewhere), OUT1, OUT2, BOTH."]],
  [2,11,2,"IN",["Kanál MIDI IN: AL = všechny, 01–16. Platí pro nahrávání USR i pro THRU.","MIDI IN channel: AL = all, 01–16. Applies to USR recording and THRU."]],
  [2,14,4,"THRU",["MIDI THRU: co přijde na MIDI IN (noty, CC, pitch bend, aftertouch), se pošle na kanál a výstup zvolených stop. Číslice 1–4 přepínají stopy (- = ne), kolečkem doprava SLCT = vždy stopa vybraná klávesou TRACK. Clock, start/stop, SysEx a program change se nepřeposílají.","MIDI THRU: whatever arrives at MIDI IN (notes, CC, pitch bend, aftertouch) is sent to the channel and output of the chosen tracks. Digits 1–4 toggle tracks (- = off); dial right for SLCT = always the track selected with TRACK. Clock, start/stop, SysEx and program change are not passed on."]]]},
-prog:{l:["PROG BA  MOD  TRCK A","1564 02  DIA  1-34 3"],f:[
+set3:{l:["RY/O BD  SD  CH  OH ","10/B 036 038 042 046"],f:[
+ [2,1,2,"RY",["MIDI kanál bicích RYT 01–16.","MIDI channel of the RYT drums 01–16."]],
+ [2,4,1,"/O",["Výstup bicích: 1 = OUT1, 2 = OUT2, B = oba.","Drum output: 1 = OUT1, 2 = OUT2, B = both."]],
+ [2,6,15,"BD SD CH OH",["Čísla not: basový buben, virbl, zavřený a otevřený hi-hat. Výchozí podle GM.","Note numbers: bass drum, snare, closed and open hi-hat. GM defaults."]]]},
+set4:{l:["RD  P1  P2          ","049 050 047         "],f:[
+ [2,1,11,"RD P1 P2",["Čísla not: ride a dvě perkuse dráhy PC.","Note numbers: ride and the two percussion sounds of the PC lane."]]]},
+ryt1:{l:["BD o---o---#---o---1","X01 Y01  CA02  OP03 "],f:[
+ [1,1,2,"BD",["Dráha, kterou ukazuje řádek 1: ta, kterou jsi naposledy upravoval na straně 2 (BD, SD, HH, PC, RD).","The lane shown on line 1: the one you last edited on page 2 (BD, SD, HH, PC, RD)."]],
+ [1,4,16,"ř. 1|line 1",["o úder, h zavřený hi-hat, 1 / 2 perkuse P1 / P2, - pauza, # hraje.","o hit, h closed hi-hat, 1 / 2 percussion P1 / P2, - rest, # playing."]],
+ [1,20,1,"1",["Který ze 2 taktů smyčky právě hraje.","Which of the loop's 2 bars is playing."]],
+ [2,2,2,"X",["Poloha na mapě stylů 01–15 (SHIFT+kolečko ±4).","Position on the style map 01–15 (SHIFT+dial ±4)."]],
+ [2,6,2,"Y",["Druhá souřadnice mapy 01–15 (SHIFT+kolečko ±4).","The other map coordinate 01–15 (SHIFT+dial ±4)."]],
+ [2,12,2,"CA",["Chaos 00–10: náhodně mění, které kroky hrají. Akcenty stylu zůstanou.","Chaos 00–10: randomly changes which steps play. The style's accents stay."]],
+ [2,18,2,"OP",["Otevřený hi-hat 00–10: jak často hi-hat zazní otevřeně. 00 = nikdy.","Open hi-hat 00–10: how often the hi-hat plays open. 00 = never."]]]},
+ryt2:{l:["BD o---o---#---o---1","B04 S02 H08 P03 R00 "],f:[
+ [2,2,2,"B",["Basový buben: počet úderů v taktu 00–16.","Bass drum: hits per bar 00–16."]],
+ [2,6,2,"S",["Virbl: počet úderů v taktu 00–16.","Snare: hits per bar 00–16."]],
+ [2,10,2,"H",["Hi-hat: počet úderů v taktu 00–16.","Hi-hat: hits per bar 00–16."]],
+ [2,14,2,"P",["Perkuse: počet úderů 00–16. CANCEL přepíná M1 (jen P1), M2 (jen P2), MU (ticho).","Percussion: hits per bar 00–16. CANCEL cycles M1 (P1 only), M2 (P2 only), MU (silent)."]],
+ [2,18,2,"R",["Ride: počet úderů v taktu 00–16.","Ride: hits per bar 00–16."]]]},
+ryt3:{l:["BD o---o---#---o---1","LN13  RS02  RLON    "],f:[
+ [2,3,2,"LN",["Délka smyčky 01–32 kroků. Změna platí od dalšího průchodu.","Loop length 01–32 steps. A change takes effect from the next pass."]],
+ [2,9,2,"RS",["Restart: OF, nebo každý 1., 2., 4., 8., 16. takt začnou bicí znovu od začátku.","Restart: OF, or the drums start over every 1st, 2nd, 4th, 8th or 16th bar."]],
+ [2,15,2,"RL",["ON = s restartem se hraje i celá smyčka 32 kroků (ne jen LN). Bez RS --.","ON = a restart also brings back the full 32-step loop (not just LN). Without RS --."]]]},
+prog:{l:["PROG BA MOD TRCK  A3","1564 02 DIA 1-34  ON"],f:[
  [2,1,4,"PROG",["1–4 akordy jako stupně 1–7 (např. 1564). Kolečko vybírá hotové progrese, číslice zadají vlastní.","1–4 chords as scale degrees 1–7 (e.g. 1564). The dial picks presets, digits enter your own."]],
  [2,6,2,"BA",["Délka akordu 1–16 taktů.","Chord length 1–16 bars."]],
- [2,10,3,"MOD",["DIA = melodie se posune ve stupnici, TRA = transpozice o interval stupně.","DIA = the melody moves within the scale, TRA = transposes by the degree interval."]],
- [2,15,4,"TRCK",["Které stopy progrese ovlivňuje; číslice 1–4 je přepínají.","Which tracks follow the progression; digits 1–4 toggle them."]],
- [2,20,1,"A",["Právě hrající akord 1–4 (- = stojí).","Chord now playing 1–4 (- = stopped)."]]]},
+ [2,9,3,"MOD",["DIA = melodie se posune ve stupnici, TRA = transpozice o interval stupně.","DIA = the melody moves within the scale, TRA = transposes by the degree interval."]],
+ [2,13,4,"TRCK",["Které stopy progrese ovlivňuje; číslice 1–4 je přepínají.","Which tracks follow the progression; digits 1–4 toggle them."]],
+ [2,19,2,"ON",["Progrese zapnutá / vypnutá (OF). Totéž co podržet MICRO SCOPE.","Progression on / off (OF). Same as holding MICRO SCOPE."]],
+ [1,19,2,"A",["Právě hrající akord 1–4 (- = stojí).","Chord now playing 1–4 (- = stopped)."]]]},
 patt:{l:[" NOW PTN  P01*  USE "," A01>A05* SAVE  Y/N "],f:[
  [2,2,3,"NOW",["Hrající pattern.","Pattern now playing."]],
- [2,6,3,"PTN",["Cílový slot A01–D16 (4 banky × 16). U DSAV/DLOD balík P01–P03.","Target slot A01–D16 (4 banks × 16). For DSAV/DLOD the bank P01–P03."]],
+ [2,6,3,"PTN",["Cílový slot A01–D16 (4 banky × 16). U DSAV/DLOD balík P01–P03, u FORM číslo stopy během formátování.","Target slot A01–D16 (4 banks × 16). For DSAV/DLOD the bank P01–P03, for FORM the track being formatted."]],
  [2,9,1,"*",["Hvězdička = pracovní pattern má neuložené změny.","Asterisk = the working pattern has unsaved changes."]],
- [2,11,4,"ACT",["Akce: LOAD, SAVE, CLR do / z paměti; DSAV, DLOD celý balík na / z diskety. ENTER provede.","Action: LOAD, SAVE, CLR in memory; DSAV, DLOD a whole bank to / from floppy. ENTER runs it."]],
+ [2,11,4,"ACT",["Akce: LOAD, SAVE, CLR do / z paměti; DSAV, DLOD celý balík na / z diskety; FORM naformátuje disketu. ENTER provede.","Action: LOAD, SAVE, CLR in memory; DSAV, DLOD a whole bank to / from floppy; FORM formats the floppy. ENTER runs it."]],
  [1,11,4,"P01*",["Balík na disketě; * = banky v paměti nejsou uložené na disketu.","Bank on floppy; * = banks in memory are not saved to floppy."]],
- [1,17,3,"INFO",["EMP prázdný, USE obsazený, OWR přepíše, LOS zahodí změny, OK!, ERR + kód chyby.","EMP empty, USE used, OWR will overwrite, LOS discards changes, OK!, ERR + error code."]],
- [2,17,3,"Y/N",["Potvrzení (výchozí N). LOAD za chodu proběhne na konci taktu nebo progrese.","Confirmation (default N). LOAD while playing happens at the end of the bar or progression."]]]},
-song:{l:["RW PTRN RPT MUTE  SM","02 A-05 3/4 1-34  ON"],f:[
+ [1,17,3,"INFO",["EMP prázdný, USE obsazený, OWR přepíše, LOS zahodí změny, DEL smaže disketu, OK!, ERR + kód chyby. U diskových akcí ??? = disketa se přečte až po ENTER.","EMP empty, USE used, OWR will overwrite, LOS discards changes, DEL erases the floppy, OK!, ERR + error code. For floppy actions ??? = the floppy is read only after ENTER."]],
+ [2,17,3,"Y/N",["Potvrzení (výchozí N). LOAD za chodu proběhne na konci taktu nebo progrese. ERR CHG = disketa byla vyměněna po ENTER, nic se nezapsalo.","Confirmation (default N). LOAD while playing happens at the end of the bar or progression. ERR CHG = the floppy was swapped after ENTER, nothing was written."]]]},
+song:{l:["RW PTRN RPT MUTE  SM","02 A-05 3/4 1-34R ON"],f:[
  [2,1,2,"RW",["Řádek songu 01–99 (jen do prvního STOP nebo LOOP). REC vloží řádek, SHIFT+REC smaže.","Song row 01–99 (up to the first STOP or LOOP). REC inserts a row, SHIFT+REC deletes."]],
  [2,4,4,"PTRN",["Pattern A-01…D-16, nebo STOP (konec) či LOOP (zpět na 01).","Pattern A-01…D-16, or STOP (end) or LOOP (back to 01)."]],
  [2,9,3,"RPT",["Opakování 1–8; 3/4 = hraje 3. ze 4. S progresí = průchod celou progresí.","Repeats 1–8; 3/4 = playing 3rd of 4. With a progression = one full pass."]],
- [2,13,4,"MUTE",["Ztlumení stop v řádku; číslice 1–4 přepínají (- = ztlumená).","Track mutes for the row; digits 1–4 toggle them (- = muted)."]],
+ [2,13,5,"MUTE",["Ztlumení v řádku; číslice 1–4 přepínají stopy, 5 bicí RYT (- = ztlumená).","Mutes for the row; digits 1–4 toggle the tracks, 5 the RYT drums (- = muted)."]],
  [2,19,2,"SM",["Song mode ON / OF. Totéž co podržet EDIT. ON = PLAY hraje od řádku 01.","Song mode ON / OF, same as holding EDIT. ON = PLAY starts from row 01."]]]}
 };
-const GOLHOW={
-cs:["<b>Mřížka.</b> 4 řádky (dráhy A–D) po 16 krocích. Na displeji jsou to 4 znaky, každý = 1 doba.", "<b>Dráhy = hlasy.</b> Každá dráha je jeden tón akordu CH: A kořen, B tercie, C kvinta, D septima (u trojzvuku kořen o oktávu výš). Plná buňka = nota.", "<b>Generace.</b> Na začátku každého taktu se mřížka změní podle jednoduchých pravidel: buňka se 2–3 sousedy přežije, prázdná se 3 sousedy ožije, ostatní zmizí. Sousedé jsou i ve vedlejších drahách, proto se hlasy navzájem ovlivňují.", "<b>Co zazní.</b> Hrají plné buňky. BR ON pustí jen nově vzniklé, DE nechá jen silné doby, PR losuje, TI spojí noty za sebou.", "<b>Vývoj.</b> Vzor se časem ustálí nebo vymře. MU přidává náhodné změny, RS rozhodne, co dál: nová mřížka, opakování té poslední, nebo ticho.", "<b>Ruce na stroji.</b> REC = nová náhodná mřížka. PAUSE zastaví vývoj a mřížka hraje dokola.", "<b>Původ.</b> GOL vychází z Hry života (Game of Life), buněčného automatu, který v roce 1970 vymyslel matematik John Horton Conway. Proslavil ho sloupek Martina Gardnera v časopise Scientific American. QUALEA používá původní pravidla B3/S23 na mřížce, jejíž okraje navazují dokola."],
-en:["<b>Grid.</b> 4 rows (lanes A–D) of 16 steps. On the display they are 4 characters, one per beat.", "<b>Lanes = voices.</b> Each lane is one note of chord CH: A root, B third, C fifth, D seventh (or the root an octave up with a triad). A filled cell = a note.", "<b>Generations.</b> At the start of every bar the grid changes by simple rules: a cell with 2–3 neighbours survives, an empty cell with 3 comes alive, the rest disappear. Neighbours include the adjacent lanes, so the voices affect each other.", "<b>What sounds.</b> Filled cells play. BR ON plays only new cells, DE keeps only strong beats, PR rolls a chance, TI ties notes together.", "<b>Evolution.</b> Over time a pattern settles or dies out. MU adds random changes, RS decides what next: a new grid, the last one again, or silence.", "<b>Hands on.</b> REC = a new random grid. PAUSE stops the evolution and the grid loops.", "<b>Origin.</b> GOL is based on the Game of Life, a cellular automaton devised in 1970 by the mathematician John Horton Conway and made famous by Martin Gardner's column in Scientific American. QUALEA uses the original B3/S23 rules on a grid whose edges wrap around."],
-cap:["Mřížka z náhledu displeje. Akord SE7 v C MAJ: A = C, B = E, C = G, D = B. Na každém kroku hrají všechny živé buňky jako akord (PL ON) nebo jen jedna z nich (HI / LO / AR).",
-"The grid from the display preview. Chord SE7 in C MAJ: A = C, B = E, C = G, D = B. On each step all live cells play as a chord (PL ON) or just one of them (HI / LO / AR)."]};
-function golFig(){const nt=["C","E","G","B"];let h='<figure class="golfig" style="margin:0"><table>';
- for(let l=0;l<4;l++){h+=`<tr><th>${"ABCD"[l]} ${nt[l]}</th>`;for(let q=0;q<16;q++)h+=`<td class="${GRID[l][q]==="1"?"on":""}${q%4===0&&q?" b4":""}"></td>`;h+="</tr>";}
- h+=`<tr><th></th>${[1,2,3,4].map(b=>`<th colspan="4" style="text-align:left;color:var(--muted)">${b}</th>`).join("")}</tr></table><figcaption>${GOLHOW.cap[L()]}</figcaption></figure>`;return h;}
+const RYTHOW={
+cs:["<b>Bubeník navíc.</b> RYT hraje vedle čtyř stop vlastní bicí: basový buben, virbl, hi-hat, perkuse a ride. Po zapnutí je ztlumený – podrž <b>TRACK T/R</b>.", "<b>Styl.</b> X a Y vybírají místo na mapě 9 stylů. Na hodnotách 01, 08 a 15 hraje styl přesně, mezi nimi se sousední styly prolínají.", "<b>Hustota.</b> Na straně 2 nastav, kolik úderů v taktu má každá dráha (00–16). Údery přibývají od nejdůležitějších pro daný styl.", "<b>Variace.</b> CA přidá náhodu, OP otevřený hi-hat. Síla úderů je pevná: akcent, běžný a tichý úder.", "<b>Délka.</b> Smyčka má 2 takty. LN ji zkrátí, RS ji pravidelně vrací na první dobu."],
+en:["<b>An extra drummer.</b> Next to the four tracks, RYT plays its own drums: bass drum, snare, hi-hat, percussion and ride. It starts muted – hold <b>TRACK T/R</b>.", "<b>Style.</b> X and Y pick a spot on a map of 9 styles. At 01, 08 and 15 a style plays exactly; in between, neighbouring styles blend.", "<b>Density.</b> On page 2 set how many hits per bar each lane plays (00–16). Hits are added from the most important ones for the style.", "<b>Variation.</b> CA adds randomness, OP adds open hi-hat. Hit strength is fixed: accent, normal and soft.", "<b>Length.</b> The loop is 2 bars. LN shortens it, RS regularly brings it back to beat 1."],
+cap:["Mapa stylů 3×3. Zkratky stylů jsou ty, které ukazuje QUALEA.","The 3×3 style map. Style names are the abbreviations QUALEA uses."]};
+function rytFig(){const MAP=[["HOU","MIN","TEC"],["GAR","STR","ELE"],["HIP","FNK","BRK"]];let h='<figure class="golfig rytfig" style="margin:0"><table><tr><th></th>'+["01","08","15"].map(v=>`<th>X ${v}</th>`).join("")+"</tr>";
+ MAP.forEach((r,i)=>{h+=`<tr><th>Y ${["01","08","15"][i]}</th>${r.map(s=>`<td>${s}</td>`).join("")}</tr>`;});
+ return h+`</table><figcaption>${RYTHOW.cap[L()]}</figcaption></figure>`;}
 const TURHOW={
 cs:["<b>Registr.</b> Smyčka 16 jedniček a nul o délce LN. S každým krokem se posune o jedno místo.", "<b>Výška.</b> 8 políček v okénku dá číslo: malé = nízký tón, velké = vysoký, vždy ve stupnici.", "<b>Mutace CG.</b> Jak často se políčko při průchodu otočí. 00 = smyčka se opakuje, nízké hodnoty = pomalé změny, 05 = nejvíc náhody, 10 = dvojnásobná smyčka, druhé kolo zrcadlově.", "<b>Rytmus HT.</b> Euklidovský jako u EUC, nebo BT = úder tam, kde je v registru 1.", "<b>Ruce na stroji.</b> REC = nový náhodný registr. PAUSE zamrazí právě hrající smyčku.", "<b>Původ.</b> TUR vychází z modulu Turing Machine od Music Thing Modular (Tom Whitwell)."],
 en:["<b>Register.</b> A loop of 16 ones and zeros, LN steps long. It moves one place with every step.", "<b>Pitch.</b> 8 cells in the window make a number: small = low note, large = high note, always in the scale.", "<b>Change CG.</b> How often a cell flips as it passes. 00 = the loop repeats, low values = slow changes, 05 = most random, 10 = a double-length loop, the second pass mirrored.", "<b>Rhythm HT.</b> Euclidean as in EUC, or BT = a hit wherever the register holds a 1.", "<b>Hands on.</b> REC = a new random register. PAUSE freezes the loop playing now.", "<b>Origin.</b> TUR is based on the Turing Machine module by Music Thing Modular (Tom Whitwell)."],
@@ -607,7 +586,7 @@ function infA(n){let v=0,bits=[];while(n>0){bits.push(n&1);n>>=1;}for(let i=bits
 function infFig(){const NM=["G2","A2","B2","C3","D3","E3","F3","G3"];let h='<figure class="golfig" style="margin:0"><table>';
  for(let r=4;r>=-3;r--){h+=`<tr><th>${NM[r+3]}</th>`;for(let q=0;q<16;q++)h+=`<td class="${infA(q)===r?"on":""}${q%4===0&&q?" b4":""}"></td>`;h+="</tr>";}
  h+=`</table><figcaption>${INFHOW.cap[L()]}</figcaption></figure>`;return h;}
-const ORIG={tur:[TURHOW.cs.pop(),TURHOW.en.pop()],gol1:[GOLHOW.cs.pop(),GOLHOW.en.pop()],inf1:["<b>x</b> "+INFHOW.orig[0],"<b>x</b> "+INFHOW.orig[1]]};
+const ORIG={tur:[TURHOW.cs.pop(),TURHOW.en.pop()],inf1:["<b>x</b> "+INFHOW.orig[0],"<b>x</b> "+INFHOW.orig[1]]};
 for(const k in ORIG) ORIG[k]=ORIG[k].map(s=>s.replace(/^<b>[^<]*<\/b>\s*/,""));
 const GROUPS=[
  ["Typy stop","Track types",[
@@ -616,46 +595,50 @@ const GROUPS=[
   ["euc3","Strana 3 · artikulace","Page 3 · articulation","SKIP",null,null],
   ["euc4", "Strana 4 · rychlost a tvar", "Page 4 · speed and shape", "SKIP", null, null, "Stopa 1: ST16 HT05. Stopa 2: ST12 HT03, CT ARP, CH SE7. Stopy se rozcházejí a znovu potkají každých 48 kroků, arpeggio drží druhou stopu v tónech akordu.", "Track 1: ST16 HT05. Track 2: ST12 HT03, CT ARP, CH SE7. The tracks drift apart and meet again every 48 steps; the arpeggio keeps track 2 on chord tones."],
   ["tur","TUR · Turing machine","TUR · Turing machine","TYP","16bitový posuvný registr dává výšky, mutace ho pomalu mění. PAUSE smyčku zamrazí, REC dá nový registr.","A 16-bit shift register sets the pitches and mutation slowly changes it. PAUSE freezes the loop, REC gives a new register.","CG 02: smyčka se jen pomalu proměňuje. Když zazní fráze, která se ti líbí, PAUSE ji zamrazí. HT BT a CG 05: rytmus i melodie se mění zároveň.","CG 02: the loop changes only slowly. When you hear a phrase you like, PAUSE freezes it. HT BT with CG 05: rhythm and melody change together."],
-  ["usr","USR · nahrávka","USR · recording","TYP","Nahrávání z MIDI IN kvantizované na kroky. REC = overdub zap / vyp, 0 maže krok, SHIFT+REC smaže stopu.","Recording from MIDI IN, quantised to steps. REC = overdub on / off, 0 deletes a step, SHIFT+REC clears the track.","Nahraj krátkou frázi, nastav SCL MAJ, QZ ON a podržením T/R zapni progresi 1564. Fráze se posouvá s akordy a QZ ji drží ve stupnici.","Record a short phrase, set SCL MAJ, QZ ON and hold T/R to switch on progression 1564. The phrase moves with the chords and QZ keeps it in the scale."],
-  ["gol1", "GOL · Hra života", "GOL · Game of Life", "TYP", "Čtyři dráhy se navzájem ovlivňují podle pravidel Hry života. PAUSE zastaví generace, REC mřížku znovu oseje.", "Four lanes influence each other by the Game of Life rules. PAUSE stops the generations, REC reseeds the grid."],
-  ["gol5", "GOL · strana 5", "GOL · page 5", "SKIP", null, null, "PL AR a délky drah LA16 LB12 LC10 LD07: jednohlasá melodie pro mono synth, která se neustále obměňuje. MU 02 občas vnese změnu.", "PL AR with lane lengths LA16 LB12 LC10 LD07: a single-voice melody for a mono synth that keeps varying. MU 02 adds an occasional change."],
+  ["usr","USR · nahrávka","USR · recording","TYP","Nahrávání z MIDI IN kvantizované na kroky. REC = overdub zap / vyp, 0 maže krok, SHIFT+REC smaže stopu.","Recording from MIDI IN, quantised to steps. REC = overdub on / off, 0 deletes a step, SHIFT+REC clears the track.","Nahraj krátkou frázi, nastav SCL MAJ, QZ ON a podržením MICRO SCOPE zapni progresi 1564. Fráze se posouvá s akordy a QZ ji drží ve stupnici.","Record a short phrase, set SCL MAJ, QZ ON and hold MICRO SCOPE to switch on progression 1564. The phrase moves with the chords and QZ keeps it in the scale."],
   ["crd1", "CRD · akordy", "CRD · chords", "TYP", "Celé akordy podle rytmické šablony, se strumem nebo arpeggiem. Akord sleduje progresi.", "Full chords on a rhythm template, strummed or arpeggiated. The chord follows the progression."],
   ["crd4", "CRD · strana 4", "CRD · page 4", "SKIP", null, null, "RY QTR, GT 10, AR UP, AS /16, OR 02, IV N a progrese 1564: plynulé arpeggio přes 2 oktávy, akordy na sebe navazují nejbližším obratem.", "RY QTR, GT 10, AR UP, AS /16, OR 02, IV N with progression 1564: a smooth two-octave arpeggio, chords connect through the closest inversion."],
   ["inf1", "INF · řada nekonečna", "INF · infinity series", "TYP", "Melodie z matematické řady: každý úder vezme další člen řady jako krok ve stupnici. Stejné nastavení dá vždy stejnou melodii.", "A melody from a mathematical series: each hit takes the next term as a scale step. The same settings always give the same melody."],
   ["inf5", "INF · strana 5", "INF · page 5", "SKIP", null, null, "IX 00, SK 05, IT 2, CT CHD, CH SE7, OR 2 a LP 2: klidná melodie z tónů akordu, která se každé 2 takty vrací a s progresí mění harmonii.", "IX 00, SK 05, IT 2, CT CHD, CH SE7, OR 2 and LP 2: a calm melody on chord tones that returns every 2 bars and follows the progression's harmony."]]],
+ ["Bicí RYT","RYT drums",[
+  ["ryt1","RYT · strana 1 · styl","RYT · page 1 · style","TRACK T/R","Pátá jednotka: generátor bicích na vlastním MIDI kanálu (SETUP strany 3–4). Podržet T/R = bicí zap / vyp. REC a PAUSE tu zatím nic nedělají.","The fifth unit: a drum generator on its own MIDI channel (SETUP pages 3–4). Hold T/R = drums on / off. REC and PAUSE do nothing here yet."],
+  ["ryt2","RYT · strana 2 · hustota","RYT · page 2 · density","SKIP","CANCEL na poli ztlumí dráhu (MU), další CANCEL ji vrátí. Hustotu jde měnit i ve ztlumení.","CANCEL on a field mutes that lane (MU), another CANCEL brings it back. Density can be changed while muted."],
+  ["ryt3","RYT · strana 3 · délka","RYT · page 3 · length","SKIP",null,null,"LN 13 a RS 04: bicí se rozjedou do lichého rytmu proti melodiím a každé 4 takty se srovnají na první dobu.","LN 13 with RS 04: the drums drift into an odd rhythm against the melodies and line up on beat 1 every 4 bars."]]],
  ["Společné obrazovky","Shared screens",[
   ["glob1","GLOBAL · strana 1","GLOBAL · page 1","FUNC","Hodnoty se ukládají s patternem.","Values are saved with the pattern."],
   ["glob2","GLOBAL · strana 2","GLOBAL · page 2","FUNC · SKIP",null,null],
-  ["prog","PROG · progrese","PROG · progression","TRACK T/R","Podržet T/R = progrese zap / vyp. Akord se mění na začátku taktu.","Hold T/R = progression on / off. Chords change on the bar line."],
+  ["prog","PROG · progrese","PROG · progression","MICRO SCOPE","Podržet MICRO SCOPE = progrese zap / vyp. Akord se mění na začátku taktu.","Hold MICRO SCOPE = progression on / off. Chords change on the bar line."],
   ["set1","SETUP · strana 1","SETUP · page 1","UTIL/MIDI","Nastavení MIDI se ukládá do balíku a obnoví se po zapnutí.","MIDI settings are saved in the bank and restored at power-on."],
   ["set2","SETUP · strana 2","SETUP · page 2","UTIL/MIDI · SKIP","Softwarové MIDI THRU: hraj z klávesnice nebo kontroléru přes MC-500 na synth kterékoli stopy, i za chodu a při nahrávání.","Software MIDI THRU: play from a keyboard or controller through the MC-500 to the synth of any track, also while playing and recording."],
-  ["patt","PATTERN","PATTERN","MODE/LOC","64 patternů v paměti, 3 balíky na disketě. Přepnutí za chodu drží synchron včetně program change.","64 patterns in memory, 3 banks on floppy. Switching while playing stays in sync, program changes included."],
+  ["set3","SETUP · strana 3 · bicí","SETUP · page 3 · drums","UTIL/MIDI · SKIP","Kanál, výstup a noty bicích RYT. Ukládá se se SETUP.","Channel, output and notes of the RYT drums. Saved with SETUP."],
+  ["set4","SETUP · strana 4 · bicí","SETUP · page 4 · drums","UTIL/MIDI · SKIP",null,null],
+  ["patt","PATTERN","PATTERN","MODE/LOC","64 patternů v paměti, 3 balíky na disketě. Přepnutí za chodu drží synchron včetně program change. Diskové akce čtou až tu disketu, která je vložená při ENTER, takže se dá střídat víc disket. FORM naformátuje disketu na datovou (asi 68 s) – smaže i program, proto ne na disketě s QUALEA.","64 patterns in memory, 3 banks on floppy. Switching while playing stays in sync, program changes included. Floppy actions read the disk that is inserted when you press ENTER, so you can swap between several floppies. FORM turns a floppy into a data disk (about 68 s) – it also erases the program, so not on the QUALEA disk.","Přenos patternu na jinou disketu: LOAD pattern, vyměň disketu, DLOD balík z ní (hrající pattern zůstane, s *), SAVE do volného slotu a DSAV.","Moving a pattern to another floppy: LOAD the pattern, swap the floppy, DLOD a bank from it (the playing pattern stays, marked *), SAVE it to a free slot and DSAV."],
   ["song","SONG","SONG","EDIT","Řetězení patternů. Podržet EDIT = song zap / vyp. STOP při zastavení = zpět na řádek 01.","Chains patterns. Hold EDIT = song on / off. STOP while stopped = back to row 01."]]]
 ];
 
 /* klávesy panelu: x,y,w,h ve viewBoxu 1100×960 */
 const KEYS=[
- ["tr",98,622,30,30,"TRACK T/R","prog",["Krátce: obrazovka PROG. Podržet 0,5 s nebo SHIFT+T/R: progrese zap / vyp.","Short press: PROG screen. Hold 0.5 s or SHIFT+T/R: progression on / off."],["LED: svítí = progrese zapnutá, bliká = zapnutá a otevřená.","LED: lit = progression on, blinking = on and open."]],
+ ["tr",98,622,30,30,"TRACK T/R","ryt1",["Krátce: obrazovka bicích RYT, znovu = zpět na stopu. Podržet 0,5 s nebo SHIFT+T/R: bicí zap / vyp.","Short press: RYT drum screen, again = back to the track. Hold 0.5 s or SHIFT+T/R: drums on / off."],["LED: svítí = bicí hrají, bliká = otevřená obrazovka RYT, nesvítí = ztlumené. Na MC-50 se klávesa jmenuje RHYTHM.","LED: lit = drums playing, blinking = RYT screen open, off = muted. On the MC-50 the key is called RHYTHM."]],
  ["t1",151,622,30,30,"TRACK 1","euc1",["Krátce: vybrat stopu 1 (z jiné obrazovky přepne na stopu). Podržet 0,5 s nebo SHIFT+TRACK: mute / unmute.","Short press: select track 1 (from another screen jumps to the track). Hold 0.5 s or SHIFT+TRACK: mute / unmute."],["LED: svítí = hraje, bliká = vybraná, nesvítí = ztlumená.","LED: lit = playing, blinking = selected, off = muted."]],
  ["t2",204,622,30,30,"TRACK 2","euc1",["Stejně jako TRACK 1, pro stopu 2.","Same as TRACK 1, for track 2."],null],
  ["t3",257,622,30,30,"TRACK 3","euc1",["Stejně jako TRACK 1, pro stopu 3.","Same as TRACK 1, for track 3."],null],
  ["t4",310,622,30,30,"TRACK 4","euc1",["Stejně jako TRACK 1, pro stopu 4.","Same as TRACK 1, for track 4."],null],
- ["reset",82,712,64,70,"RESET","euc1",["Předchozí strana obrazovky (stopa 1–4, GOL 1–5; GLOBAL a SETUP strana 1).","Previous page of the screen (track 1–4, GOL 1–5; GLOBAL and SETUP page 1)."],null],
+ ["reset",82,712,64,70,"RESET","euc1",["Předchozí strana obrazovky (stopa 1–4, INF 1–5, RYT 1–3, GLOBAL 1–2, SETUP 1–4).","Previous page of the screen (track 1–4, INF 1–5, RYT 1–3, GLOBAL 1–2, SETUP 1–4)."],null],
  ["skip",150,712,64,70,"SKIP","euc2",["Další strana obrazovky. Strany bez platného pole se přeskočí.","Next page of the screen. Pages with no active field are skipped."],null],
- ["rec",218,712,64,70,"REC/LOAD","euc1",["EUC: nová náhodná melodie, slide, tie, akcenty. TUR: nový registr. USR: overdub zap / vyp. GOL: nové osévání. INF: nový náhodný začátek IX. SONG: vložit řádek.","EUC: new random melody, slides, ties, accents. TUR: new register. USR: overdub on / off. GOL: reseed. INF: new random start IX. SONG: insert a row."],["SHIFT+REC: USR smaže stopu, SONG smaže řádek.","SHIFT+REC: USR clears the track, SONG deletes the row."]],
- ["pause",286,712,64,70,"PAUSE","tur",["Zamrazí vybranou stopu: TUR registr se nemění, GOL generace stojí, INF (s LP OF) opakuje poslední průchod. Pattern hraje dokola.","Freezes the selected track: the TUR register stops changing, GOL generations stop, INF (with LP OF) repeats its last pass. The pattern loops."],["LED svítí = vybraná stopa je zamrazená.","LED lit = the selected track is frozen."]],
+ ["rec",218,712,64,70,"REC/LOAD","euc1",["EUC: nová náhodná melodie, slide, tie, akcenty. TUR: nový registr. USR: overdub zap / vyp. INF: nový náhodný začátek IX. SONG: vložit řádek. CRD a RYT: nic.","EUC: new random melody, slides, ties, accents. TUR: new register. USR: overdub on / off. INF: new random start IX. SONG: insert a row. CRD and RYT: nothing."],["SHIFT+REC: USR smaže stopu, SONG smaže řádek.","SHIFT+REC: USR clears the track, SONG deletes the row."]],
+ ["pause",286,712,64,70,"PAUSE","tur",["Zamrazí vybranou stopu: TUR registr se nemění, INF (s LP OF) opakuje poslední průchod. Pattern hraje dokola. Na RYT nic.","Freezes the selected track: the TUR register stops changing, INF (with LP OF) repeats its last pass. The pattern loops. Nothing on RYT."],["LED svítí = vybraná stopa je zamrazená.","LED lit = the selected track is frozen."]],
  ["stop",82,820,134,74,"STOP",null,["Zastaví (FC, note off všem). Na obrazovce SONG ve stopu: zpět na řádek 01.","Stops (FC, note off to all). On the SONG screen while stopped: back to row 01."],null],
  ["play",218,820,134,74,"PLAY","logo",["Spustí: program change, pak FA a MIDI clock. Se zapnutým songem hraje od řádku 01.","Starts: program changes, then FA and MIDI clock. With song on it plays from row 01."],["LED svítí = hraje, bliká = song mode.","LED lit = playing, blinking = song mode."]],
- ["dial",424,618,156,156,"α-DIAL",null,["Hodnota ±1 (5 cvaknutí na krok). SHIFT+kolečko = velký krok u ST, HT, RT (±4), BPM (±10), SCL (±4), RNT (±12), DRP a T1P–T4P (±16).","Value ±1 (5 clicks per step). SHIFT+dial = big step for ST, HT, RT (±4), BPM (±10), SCL (±4), RNT (±12), DRP and T1P–T4P (±16)."],null],
+ ["dial",424,618,156,156,"α-DIAL",null,["Hodnota ±1 (5 cvaknutí na krok). SHIFT+kolečko = velký krok u ST, HT, RT (±4), BPM (±10), SCL (±4), RNT (±12), DRP a T1P–T4P (±16), RYT X a Y (±4).","Value ±1 (5 clicks per step). SHIFT+dial = big step for ST, HT, RT (±4), BPM (±10), SCL (±4), RNT (±12), DRP and T1P–T4P (±16), RYT X and Y (±4)."],null],
  ["left",408,824,94,62,"←",null,["Předchozí pole. Na obrazovce stopy přejde přes všechny strany dokola.","Previous field. On track screens it wraps through all pages."],null],
  ["right",506,824,94,62,"→",null,["Další pole. Pole s pomlčkami přeskočí.","Next field. Skips fields shown as dashes."],null],
- ["util",660,630,65,64,"UTIL/MIDI","set1",["Obrazovka SETUP (kanály, výstupy, sync, MIDI IN, THRU). Znovu = zpět na stopu.","SETUP screen (channels, outputs, sync, MIDI IN, THRU). Press again = back to the track."],null],
+ ["util",660,630,65,64,"UTIL/MIDI","set1",["Obrazovka SETUP (kanály, výstupy, sync, MIDI IN, THRU, bicí RYT). Znovu = zpět na stopu.","SETUP screen (channels, outputs, sync, MIDI IN, THRU, RYT drums). Press again = back to the track."],null],
  ["edit",727,630,65,64,"EDIT","song",["Krátce: obrazovka SONG. Podržet 0,5 s nebo SHIFT+EDIT: song zap / vyp.","Short press: SONG screen. Hold 0.5 s or SHIFT+EDIT: song on / off."],null],
  ["func",660,696,65,64,"FUNC","glob1",["Obrazovka GLOBAL (tempo, shuffle, stupnice, program change). Znovu = zpět.","GLOBAL screen (tempo, shuffle, scale, program change). Press again = back."],null],
- ["micro",727,696,65,64,"MICRO SCOPE",null,["Zatím volná.","Not used yet."],null],
- ["mode",660,762,65,64,"MODE/LOC","patt",["Obrazovka PATTERN (LOAD, SAVE, CLR, DSAV, DLOD). Znovu = zpět.","PATTERN screen (LOAD, SAVE, CLR, DSAV, DLOD). Press again = back."],null],
- ["avail",727,762,65,64,"AVAIL/CANCEL",null,["Zahodí rozepsané číslo. V potvrzení = N. Zruší čekající LOAD.","Discards a number being typed. In a confirmation = N. Cancels a pending LOAD."],null],
- ["shift",660,830,132,60,"SHIFT",null,["Přeřaďovač: SHIFT+TRACK mute, SHIFT+T/R progrese, SHIFT+EDIT song, SHIFT+REC mazání, SHIFT+kolečko velký krok.","Modifier: SHIFT+TRACK mute, SHIFT+T/R progression, SHIFT+EDIT song, SHIFT+REC delete, SHIFT+dial big step."],null],
+ ["micro",727,696,65,64,"MICRO SCOPE","prog",["Krátce: obrazovka PROG (progrese akordů). Podržet 0,5 s nebo SHIFT+MICRO SCOPE: progrese zap / vyp.","Short press: PROG screen (chord progression). Hold 0.5 s or SHIFT+MICRO SCOPE: progression on / off."],["Stav progrese ukazuje pole ON / OF a akord A na obrazovce PROG.","The progression state is shown by the ON / OF field and chord A on the PROG screen."]],
+ ["mode",660,762,65,64,"MODE/LOC","patt",["Obrazovka PATTERN (LOAD, SAVE, CLR, DSAV, DLOD, FORM). Znovu = zpět.","PATTERN screen (LOAD, SAVE, CLR, DSAV, DLOD, FORM). Press again = back."],null],
+ ["avail",727,762,65,64,"AVAIL/CANCEL",null,["Zahodí rozepsané číslo. V potvrzení = N. Zruší čekající LOAD. Na RYT straně 2 ztlumí dráhu (MU), u PC dokola M1, M2, MU.","Discards a number being typed. In a confirmation = N. Cancels a pending LOAD. On RYT page 2 it mutes the lane (MU); for PC it cycles M1, M2, MU."],null],
+ ["shift",660,830,132,60,"SHIFT",null,["Přeřaďovač: SHIFT+TRACK mute, SHIFT+T/R bicí, SHIFT+MICRO SCOPE progrese, SHIFT+EDIT song, SHIFT+REC mazání, SHIFT+kolečko velký krok.","Modifier: SHIFT+TRACK mute, SHIFT+T/R drums, SHIFT+MICRO SCOPE progression, SHIFT+EDIT song, SHIFT+REC delete, SHIFT+dial big step."],null],
  ["enter",892,828,128,62,"ENTER",null,["Zapíše číslo hned. Na PATTERN spustí akci a potvrdí Y/N.","Enters the number at once. On PATTERN runs the action and confirms Y/N."],null]
 ];
 [["d7",826,630],["d8",892,630],["d9",958,630],["d4",826,696],["d5",892,696],["d6",958,696],["d1",826,762],["d2",892,762],["d3",958,762],["d0",826,828]].forEach(([id,x,y])=>{
@@ -663,7 +646,7 @@ const KEYS=[
  KEYS.push([id,x,y,64,id==="d0"?62:64,n==="0"?"0 / SPACE":n,null,
   n==="0"?["Číslice 0. Při nahrávání USR maže krok (ťuk = 1 krok, držet = další kroky).","Digit 0. While recording USR it deletes steps (tap = 1 step, hold = more steps)."]
          :["Přímé zadání čísla. Zapíše se samo po 1,5 s nebo hned, když další číslice nedává smysl.","Direct number entry. Commits by itself after 1.5 s, or at once when no further digit makes sense."],
-  n==="0"?null:["Na PROG číslice 1–7 zadají progresi, na TRCK a SONG/MUTE 1–4 přepínají stopy.","On PROG digits 1–7 enter the progression, on TRCK and SONG/MUTE 1–4 toggle tracks."]]);
+  n==="0"?null:["Na PROG číslice 1–7 zadají progresi, na TRCK a SONG/MUTE 1–4 přepínají stopy, v SONG/MUTE 5 bicí RYT.","On PROG digits 1–7 enter the progression, on TRCK and SONG/MUTE 1–4 toggle tracks, on SONG/MUTE 5 the RYT drums."]]);
 });
 
 /* ---------- LCD ---------- */
@@ -718,7 +701,7 @@ function buildScreens(){
         (intro?`<p class="intro">${esc(intro)}</p>`:"")+
         (id==="tur"?`<div class="golhow"><ol>${TURHOW[lang].map(x=>`<li>${x}</li>`).join("")}</ol>${turFig()}</div>`:"")+
         (id==="inf1"?`<div class="golhow"><ol>${INFHOW[lang].map(x=>`<li>${x}</li>`).join("")}</ol>${infFig()}</div>`:"")+
-        (id==="gol1"?`<div class="golhow"><ol>${GOLHOW[lang].map(x=>`<li>${x}</li>`).join("")}</ol>${golFig()}</div>`:"")+
+        (id==="ryt1"?`<div class="golhow"><ol>${RYTHOW[lang].map(x=>`<li>${x}</li>`).join("")}</ol>${rytFig()}</div>`:"")+
         `<canvas class="lcd" role="img" aria-label="${esc(s.l[0].replace(/[\x00-\x07]/g,"#"))} / ${esc(s.l[1])}"></canvas>`+
         `<ol class="fields">${s.f.map((a,i)=>{const nm=a[3].split("|");return `<li data-i="${i}"><code>${esc(nm[L()]||nm[0])}</code><span>${esc(a[4][L()])}</span></li>`;}).join("")}</ol>`+(tpc?`<p class="tip"><b>TIP</b>${esc(lang==="cs"?tpc:tpe)}</p>`:"");
       g.appendChild(d);
@@ -766,7 +749,17 @@ function setLang(l){
   document.querySelectorAll(".lang button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.l===l));
   buildScreens(); selKey(curKey); renderAll();
 }
-document.querySelectorAll(".lang button").forEach(b=>b.addEventListener("click",()=>setLang(b.dataset.l)));
+/* při přepnutí jazyka zůstat na stejném místě stránky */
+function keepPlace(fn){
+  const hdr=document.querySelector("header.top"), y=(hdr?hdr.getBoundingClientRect().bottom:0)+12;
+  let el=document.elementFromPoint(Math.min(innerWidth/2,480),y), key=null;
+  if(el){const s=el.closest(".scr"); if(s&&s.id) key="#"+s.id; else el=el.closest("li,p,h2,h3,h4,figure,.lcd,.panelbox,.types,.road,section");}
+  const ref=key?document.querySelector(key):el, top=ref?ref.getBoundingClientRect().top:0;
+  fn();
+  const now=key?document.querySelector(key):el;
+  if(now&&now.isConnected){const d=now.getBoundingClientRect().top-top; if(d){const h=document.documentElement, sb=h.style.scrollBehavior; h.style.scrollBehavior="auto"; window.scrollTo(0,window.scrollY+d); h.style.scrollBehavior=sb;}}
+}
+document.querySelectorAll(".lang button").forEach(b=>b.addEventListener("click",()=>{if(b.dataset.l!==lang) keepPlace(()=>setLang(b.dataset.l));}));
 buildPanel(); setLang(lang);
 addEventListener("resize",renderAll);
 if(document.fonts) document.fonts.ready.then(renderAll);

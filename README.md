@@ -1,6 +1,6 @@
 # QUALEA-500
 
-A 4-track loop MIDI sequencer with six sequencer types for the Roland MC-500 MkII.
+A 4-track loop MIDI sequencer with five sequencer types and a drum unit for the Roland MC-500 and MC-50.
 
 **Web / manual:** https://bretikov.github.io/QUALEA-500/
 
@@ -10,12 +10,13 @@ A 4-track loop MIDI sequencer with six sequencer types for the Roland MC-500 MkI
 - **EUC** – Euclidean rhythms with a random melody
 - **TUR** – Turing machine, shift register with mutation
 - **USR** – your own recording from MIDI IN, overdub
-- **GOL** – Game of Life, 4 voices on a 4×16 grid
 - **CRD** – chords, rhythm templates, arpeggio, strum
 - **INF** – Per Nørgård's infinity series, self-similar melodies
 
+Plus **RYT**, a fifth unit on the TRACK T/R key: a drum generator with 9 styles on a 3×3 map, 5 lanes, density, chaos and open hi-hat.
+
 ## Requirements
-- Roland MC-500 MkII (also tested on the MC-500B = MkI with the OM-500 board)
+- Roland MC-500 MkII, MC-500B (MkI with the OM-500 board) or MC-50 mkI / mkII – one disk for all (version 3.5 so far tested on the MC-500 MkII only)
 - 3.5" 2DD (720 KB) floppy disk – 2HD does not work
 - a floppy drive to write the image
 
@@ -41,6 +42,9 @@ sudo dd if=QUALEA-500.dsk of=/dev/sdX bs=9216
 ```
 
 Do **not** write sector by sector (`bs=512`, often with `conv=noerror,sync`): with USB floppy drives this produces disks the MC-500 reads with CRC errors – even Roland's own system disk then fails to boot. `conv=noerror,sync` also hides write errors.
+
+## Thanks
+Thanks to the beta testers **Sunshine**, **Tim** and **John** for testing QUALEA-500 on their machines ❤️
 
 ## Terms of use
 QUALEA-500 is free for personal use. Redistributing the disk image (modified or not) and selling it are not allowed – please link to this page instead. All rights reserved.
