@@ -118,6 +118,23 @@ pre.cmd .c{color:var(--muted)}
 .keyinfo dl{margin:0;display:grid;gap:8px}
 .keyinfo dt{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .keyinfo dd{margin:0 0 4px;font-size:15px}
+.fterms{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.fterms>div{background:var(--bg);padding:16px;display:flex;flex-direction:column;gap:6px}
+.fterms b{font:500 13px var(--mono);letter-spacing:.06em;text-transform:uppercase}
+.fterms span{font-size:14px;color:var(--muted)}
+.gold{border:2px solid var(--fg);border-radius:4px;padding:16px 18px;margin:24px 0}
+.gold>b{font:500 12px var(--mono);letter-spacing:.1em;text-transform:uppercase}
+.gold p{margin:6px 0 0;font-size:15px}
+.procs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px 28px}
+.procs h4{margin:0 0 8px;font-size:15px}
+.procs ol{margin:0;padding-left:20px;display:grid;gap:6px;font-size:14px}
+.procs p{margin:8px 0 0;font-size:14px;color:var(--muted)}
+table.msgs{width:100%;border-collapse:collapse;margin-top:28px;font-size:14px}
+table.msgs th{text-align:left;font:500 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:6px 10px 6px 0;border-bottom:1.5px solid var(--fg)}
+table.msgs td{padding:7px 10px 7px 0;border-bottom:1px solid var(--line);vertical-align:top}
+table.msgs td:first-child{white-space:nowrap;width:1%;padding-right:18px}
+.fwarn{margin-top:20px;font-size:15px;font-weight:700}
+@media (max-width:860px){.fterms,.procs{grid-template-columns:1fr}}
 .rules{margin-top:28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px 32px}
 .rules p{font-size:15px;margin:0}
 
@@ -172,6 +189,7 @@ html{scroll-behavior:smooth;scroll-padding-top:64px;overflow-anchor:none}
   <nav class="sec" aria-label="Sections">
     <a href="#about"><span class="cs">O projektu</span><span class="en">About</span></a>
     <a href="#start"><span class="cs">Rychlý start</span><span class="en">Quick start</span></a>
+    <a href="#floppies"><span class="cs">Diskety</span><span class="en">Floppies</span><span class="ja">フロッピー</span></a>
     <a href="#panel"><span class="cs">Ovládání</span><span class="en">Controls</span></a>
     <a href="#screens"><span class="cs">Obrazovky</span><span class="en">Screens</span></a>
     <a href="#roadmap"><span class="cs">Plány</span><span class="en">Roadmap</span></a>
@@ -230,6 +248,7 @@ diskutil eject /dev/disk4
 
 <span class="c"># Linux:</span>
 sudo dd if=QUALEA-500.dsk of=/dev/sdX bs=9216</pre>
+      <p><span class="cs">Pozor na pořadí: <code>if=</code> je soubor, <code>of=</code> je disketa. Prohozené pořadí disketu přečte a přepíše jí soubor v počítači.</span><span class="en">Mind the order: <code>if=</code> is the file, <code>of=</code> is the floppy. Swapped, dd reads the floppy and overwrites the file on your computer.</span><span class="ja">順序に注意：<code>if=</code> がファイル、<code>of=</code> がフロッピーです。逆にすると dd はフロッピーを読み込み、コンピューター上のファイルを上書きしてしまいます。</span></p>
       <p><span class="cs">Pozor: zápis po sektorech (<code>bs=512</code>, často s <code>conv=noerror,sync</code>) USB mechanikou dává disketu, kterou MC-500 přečte s chybou, a ani obraz Rolandu se pak nenahraje.</span><span class="en">Note: writing sector by sector (<code>bs=512</code>, often with <code>conv=noerror,sync</code>) on a USB drive produces a floppy the MC-500 reads with errors; even Roland's own image then fails to load.</span></p></li>
     <li><h4><span class="cs">Zapoj MIDI</span><span class="en">Connect MIDI</span></h4>
       <p><span class="cs">Výchozí nastavení: stopy 1–4 hrají na kanálech 1–4 přes MIDI OUT 1, clock jde na oba výstupy, bicí RYT na kanál 10 přes oba výstupy. Klávesa <span class="k">UTIL/MIDI</span> otevře SETUP, kde se to dá změnit.</span><span class="en">Defaults: tracks 1–4 play on channels 1–4 via MIDI OUT 1, clock goes to both outputs, RYT drums on channel 10 via both outputs. Press <span class="k">UTIL/MIDI</span> to open SETUP and change this.</span></p></li>
@@ -240,6 +259,36 @@ sudo dd if=QUALEA-500.dsk of=/dev/sdX bs=9216</pre>
     <li><h4><span class="cs">Ulož</span><span class="en">Save</span></h4>
       <p><span class="cs"><span class="k">MODE/LOC</span> → akce <code>SAVE</code> uloží pattern do paměti, <code>DSAV</code> uloží celý balík na disketu. Co neuložíš přes DSAV, vypnutím zmizí.</span><span class="en"><span class="k">MODE/LOC</span> → action <code>SAVE</code> stores the pattern in memory, <code>DSAV</code> writes the whole bank to floppy. Anything not saved with DSAV is lost at power-off.</span></p></li>
   </ol>
+</div></section>
+
+<section id="floppies"><div class="wrap">
+  <h2><span class="cs">Diskety</span><span class="en">Floppies</span><span class="ja">フロッピー</span></h2>
+  <div class="fterms">
+    <div><b><span class="cs">Programová disketa</span><span class="en">Program disk</span><span class="ja">プログラムディスク</span></b><span><span class="cs">QUALEA a 3 balíky P01–P03. Z ní se stroj zapíná.</span><span class="en">QUALEA plus 3 banks P01–P03. You power on from this one.</span><span class="ja">QUALEA と3つのバンク P01–P03。電源投入時はこのディスクから起動します。</span></span></div>
+    <div><b><span class="cs">Datová disketa</span><span class="en">Data disk</span><span class="ja">データディスク</span></b><span><span class="cs">Jen 3 balíky, bez programu. Vytvoří ji FORM. Když se s ní stroj zapne, ukáže <code>QUALEA DATA DISK</code> / <code>INSERT QUALEA, ENTER</code>: vlož programovou disketu a stiskni ENTER.</span><span class="en">Just 3 banks, no program. FORM creates it. If you power on with it, it shows <code>QUALEA DATA DISK</code> / <code>INSERT QUALEA, ENTER</code>: insert the program disk and press ENTER.</span><span class="ja">バンク3つのみで、プログラムは入っていません。FORM で作成します。このディスクで電源を入れると <code>QUALEA DATA DISK</code> / <code>INSERT QUALEA, ENTER</code> と表示されます：プログラムディスクを入れて ENTER を押してください。</span></span></div>
+    <div><b><span class="cs">Balík</span><span class="en">Bank</span><span class="ja">バンク</span></b><span><span class="cs">64 patternů (A01–D16) + song + SETUP. DSAV zapisuje vždy celý balík. DSAV, DLOD i FORM zastaví hraní.</span><span class="en">64 patterns (A01–D16) + song + SETUP. DSAV always writes the whole bank. DSAV, DLOD and FORM stop playback.</span><span class="ja">64パターン（A01–D16）+ ソング + SETUP。DSAV は常にバンク全体を書き込みます。DSAV、DLOD、FORM は再生を停止します。</span></span></div>
+  </div>
+  <div class="gold"><b><span class="cs">Zlaté pravidlo</span><span class="en">Golden rule</span><span class="ja">大原則</span></b><p><span class="cs">Nejdřív vlož disketu, se kterou chceš pracovat, pak <code>DSAV</code> / <code>DLOD</code> / <code>FORM</code> → ENTER → Y. <b>Mezi ENTER a Y disketu neměň.</b> ENTER disketu přečte a ukáže, co se stane. Když ji vyměníš, nic se nezapíše a objeví se <code>ERR CHG</code>.</span><span class="en">First insert the floppy you want to work with, then <code>DSAV</code> / <code>DLOD</code> / <code>FORM</code> → ENTER → Y. <b>Do not swap the floppy between ENTER and Y.</b> ENTER reads the floppy and shows what will happen. If you swap it, nothing is written and <code>ERR CHG</code> appears.</span><span class="ja">先に作業したいフロッピーを入れ、それから <code>DSAV</code> / <code>DLOD</code> / <code>FORM</code> → ENTER → Y。<b>ENTER と Y の間にフロッピーを入れ替えないでください。</b> ENTER でフロッピーを読み取り、何が起こるかを表示します。入れ替えると何も書き込まれず、<code>ERR CHG</code> と表示されます。</span></p></div>
+  <div class="procs">
+    <div><h4><span class="cs">Uložit na novou disketu</span><span class="en">Save to a new floppy</span><span class="ja">新しいフロッピーに保存</span></h4><ol><li><span class="cs">Vlož prázdnou disketu.</span><span class="en">Insert a blank floppy.</span><span class="ja">空のフロッピーを入れます。</span></li><li><span class="cs"><code>FORM</code> → ENTER (u neformátované diskety <code>DEL</code>, to je v pořádku) → Y.</span><span class="en"><code>FORM</code> → ENTER (an unformatted floppy shows <code>DEL</code>, that is fine) → Y.</span><span class="ja"><code>FORM</code> → ENTER（未フォーマットのフロッピーでは <code>DEL</code> と表示されますが問題ありません）→ Y。</span></li><li><span class="cs">Počkej na <code>OK!</code> (asi 70 s).</span><span class="en">Wait for <code>OK!</code> (about 70 s).</span><span class="ja"><code>OK!</code> が出るまで待ちます（約70秒）。</span></li><li><span class="cs">Disketu nech v mechanice: <code>DSAV</code> → ENTER (<code>EMP</code>) → Y.</span><span class="en">Leave the floppy in: <code>DSAV</code> → ENTER (<code>EMP</code>) → Y.</span><span class="ja">フロッピーはそのまま：<code>DSAV</code> → ENTER（<code>EMP</code>）→ Y。</span></li></ol><p><span class="cs">Bez restartu, patterny zůstávají v paměti.</span><span class="en">No restart needed, the patterns stay in memory.</span><span class="ja">再起動は不要で、パターンはメモリに残ります。</span></p></div>
+    <div><h4><span class="cs">Načíst z datové diskety</span><span class="en">Load from a data disk</span><span class="ja">データディスクから読み込む</span></h4><ol><li><span class="cs">Vlož datovou disketu.</span><span class="en">Insert the data disk.</span><span class="ja">データディスクを入れます。</span></li><li><span class="cs"><code>DLOD</code> → vyber balík → ENTER (<code>USE</code>) → Y.</span><span class="en"><code>DLOD</code> → pick a bank → ENTER (<code>USE</code>) → Y.</span><span class="ja"><code>DLOD</code> → バンクを選ぶ → ENTER（<code>USE</code>）→ Y。</span></li></ol><p><span class="cs">Pracovní pattern hraje dál, označený <code>*</code>.</span><span class="en">The working pattern keeps playing, marked <code>*</code>.</span><span class="ja">作業中のパターンは <code>*</code> 付きで鳴り続けます。</span></p></div>
+    <div><h4><span class="cs">Přenést pattern na jinou disketu</span><span class="en">Move a pattern to another floppy</span><span class="ja">パターンを別のフロッピーへ移す</span></h4><ol><li><span class="cs">Na disketě 1: <code>LOAD</code> patternu.</span><span class="en">On floppy 1: <code>LOAD</code> the pattern.</span><span class="ja">フロッピー1で：パターンを <code>LOAD</code>。</span></li><li><span class="cs">Vyměň disketu, <code>DLOD</code> balíku diskety 2.</span><span class="en">Swap the floppy, <code>DLOD</code> a bank of floppy 2.</span><span class="ja">フロッピーを入れ替え、フロッピー2のバンクを <code>DLOD</code>。</span></li><li><span class="cs"><code>SAVE</code> do volného slotu, pak <code>DSAV</code>.</span><span class="en"><code>SAVE</code> to a free slot, then <code>DSAV</code>.</span><span class="ja">空きスロットに <code>SAVE</code> し、<code>DSAV</code>。</span></li></ol></div>
+  </div>
+  <table class="msgs"><thead><tr><th><span class="cs">Hláška</span><span class="en">Message</span><span class="ja">表示</span></th><th><span class="cs">Význam</span><span class="en">Meaning</span><span class="ja">意味</span></th></tr></thead><tbody>
+    <tr><td><code>???</code></td><td><span class="cs">stav diskety zatím neznámý, přečte se po ENTER</span><span class="en">floppy state not known yet, read after ENTER</span><span class="ja">フロッピーの状態はまだ不明、ENTER の後に読み取り</span></td></tr>
+    <tr><td><code>EMP</code></td><td><span class="cs">prázdný balík</span><span class="en">empty bank</span><span class="ja">空のバンク</span></td></tr>
+    <tr><td><code>USE</code></td><td><span class="cs">balík obsahuje data</span><span class="en">the bank contains data</span><span class="ja">バンクにデータあり</span></td></tr>
+    <tr><td><code>OWR</code></td><td><span class="cs">DSAV přepíše data na disketě</span><span class="en">DSAV will overwrite data on the floppy</span><span class="ja">DSAV がフロッピーのデータを上書きします</span></td></tr>
+    <tr><td><code>LOS</code></td><td><span class="cs">DLOD zahodí neuložené změny (<code>*</code>)</span><span class="en">DLOD discards unsaved changes (<code>*</code>)</span><span class="ja">DLOD が未保存の変更（<code>*</code>）を破棄します</span></td></tr>
+    <tr><td><code>DEL</code></td><td><span class="cs">FORM smaže obsah diskety</span><span class="en">FORM erases the floppy</span><span class="ja">FORM がフロッピーの内容を消去します</span></td></tr>
+    <tr><td><code>OK!</code></td><td><span class="cs">hotovo</span><span class="en">done</span><span class="ja">完了</span></td></tr>
+    <tr><td><code>ERR CHG</code></td><td><span class="cs">disketa vyměněna mezi ENTER a Y, nic se nezapsalo</span><span class="en">floppy swapped between ENTER and Y, nothing was written</span><span class="ja">ENTER と Y の間にフロッピーが入れ替えられた、何も書き込まれていません</span></td></tr>
+    <tr><td><code>ERR WRP</code></td><td><span class="cs">disketa je chráněná proti zápisu; hned po vložení to mechanika občas hlásí omylem – zkus znovu</span><span class="en">the floppy is write-protected; right after inserting, the drive sometimes reports this by mistake – try again</span><span class="ja">フロッピーが書き込み禁止です。挿入直後はドライブが誤ってこう表示することがあります – もう一度試してください</span></td></tr>
+    <tr><td><code>ERR NOD</code></td><td><span class="cs">v mechanice není disketa</span><span class="en">no floppy in the drive</span><span class="ja">ドライブにフロッピーがありません</span></td></tr>
+    <tr><td><code>ERR NOF</code></td><td><span class="cs">na disketě chybí soubory QUALEA (cizí disketa) – pomůže FORM</span><span class="en">the QUALEA files are missing (a foreign floppy) – use FORM</span><span class="ja">QUALEA のファイルがありません（別のフロッピー）– FORM を使ってください</span></td></tr>
+    <tr><td><code>ERR I/O</code></td><td><span class="cs">chyba čtení nebo zápisu</span><span class="en">read or write error</span><span class="ja">読み取りまたは書き込みエラー</span></td></tr>
+  </tbody></table>
+  <p class="fwarn"><span class="cs">⚠️ FORM na programové disketě smaže i QUALEA. Potom z ní program nenaběhne.</span><span class="en">⚠️ FORM on the program disk also erases QUALEA. The program will no longer boot from it.</span><span class="ja">⚠️ プログラムディスクで FORM を実行すると QUALEA も消去されます。その後、そのディスクからはプログラムが起動しません。</span></p>
 </div></section>
 
 <section id="panel"><div class="wrap">
